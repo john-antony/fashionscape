@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+// Import necessary modules and components
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Enter from './components/Enter';
+import Login from './components/Login';
+import Register from './components/Register';
+import Home from './components/Home';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Enter />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/home" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
+
+// // PrivateRoute component to handle redirection for authenticated users
+// const PrivateRoute = ({ component: Component, ...rest }) => {
+//   // const isLoggedIn = /* Check if the user is authenticated */;
+
+//   return (
+//     <Route
+//       {...rest}
+//       render={(props) =>
+//         isLoggedIn ? (
+//           <Component {...props} />
+//         ) : (
+//           <Redirect to="/login" />
+//         )
+//       }
+//     />
+//   );
+// };
 
 export default App;
