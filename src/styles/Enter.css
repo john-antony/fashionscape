@@ -1,0 +1,50 @@
+#enter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0%;
+    padding-top: 10%;
+    min-height: 75vh;
+}
+@font-face {
+    font-family: 'Rabidscience';
+    src: url("C:\Users\janto\fashionscape\public\Fonts\rabidscience.ttf") format('truetype');
+}
+
+.title {
+    font-family: "Rabidscience";
+    font-size: 75px;
+    text-shadow: 0 0 5px #292929,
+                0 0 20px #292929,
+                0 0 50px #292929,
+                0 0 100px #292929;
+}
+
+.button {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #ffffff80;
+    text-shadow: none;
+    background: transparent;
+    box-shadow: transparent;
+    border: 1px solid #ffffff80;
+    transition: 0.5s ease;
+    user-select: none;
+}
+
+.button:hover {
+    color: #ffffff;
+    background: #555353;
+    border: 1px solid #555353;
+    text-shadow: 0 0 5px #ffffff,
+                0 0 10px #ffffff,
+                0 0 20px #ffffff;
+    box-shadow: 0 0 5px #555353,
+                0 0 20px #555353,
+                0 0 50px #555353,
+                0 0 100px #555353;
+}
+
