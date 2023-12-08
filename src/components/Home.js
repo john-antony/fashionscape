@@ -1,12 +1,72 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import Masonry from 'masonry-layout';
 
 const Home = () => {
+
+  const images = [
+    {
+      url: 'archivepillar.jpg',
+      alt: 'archive pillar',
+      title: 'Title of Image 1',
+      description: 'Description of Image 1',
+    },
+    {
+      url: 'Bottega Veneta Fall 2023 Milan - Fashionably Male.jpg',
+      alt: 'Bottega',
+      title: 'Title of Image 2',
+      description: 'Description of Image 2',
+    },
+    {
+      url: 'Junya Watanabe Fall 2006 Ready-to-Wear Fashion Show.jpg',
+      alt: 'Junya',
+      title: 'Title of Image 2',
+      description: 'Description of Image 2',
+    },
+    {
+      url: 'PAF.jpg',
+      alt: 'PAF',
+      title: 'Title of Image 2',
+      description: 'Description of Image 2',
+    },
+    {
+      url: 'CDG.jpg',
+      alt: 'CDG',
+      title: 'Title of Image 2',
+      description: 'Description of Image 2',
+    },
+    {
+      url: 'Rick Owens Spring 2011 Menswear Fashion Show.jpg',
+      alt: 'Rick Owens',
+      title: 'Title of Image 2',
+      description: 'Description of Image 2',
+    },
+    {
+      url: 'Yohji Yamamoto _ Menswear - Autumn 2020 _ Look 12.jpg',
+      alt: 'Yohji Yamamoto',
+      title: 'Title of Image 2',
+      description: 'Description of Image 2',
+    },]
+  
+  const masonryRef = useRef(null);
+
+  useEffect(() => {
+    if (masonryRef.current) {
+      const masonry = new Masonry(masonryRef.current, {
+        itemSelector: '.feed-card',
+        columnWidth: '.feed-card',
+        gutter: 40,
+      });
+      masonry.layout();
+    }
+  }, []);
+
+
   return (
     <div id='home'>
       <div className='nav-bar'>
@@ -27,15 +87,19 @@ const Home = () => {
           </Link>
         </div>
       </div>
+      {/* <img src={`${process.env.PUBLIC_URL}/fits/archivepillar.jpg`} /> */}
 
-      <div className='feed-container'>
-        <ul className='feed-grid'>
-          <li className='feed-card'>
-            <img src='C:\Users\janto\fashionscape\public\assets\concrete2.jpg' alt=''/>            
-          </li>
-        </ul>
+      <div className='feed-box'>
+        <div className='feed-container'>
+          <div ref={masonryRef} className='feed-grid'>
+            {images.map((image, index) => (
+              <div key={index} className='feed-card'>
+                <img src={`${process.env.PUBLIC_URL}/fits/${image.url}`}/>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-
     </div>
   );
 };
