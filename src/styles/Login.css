@@ -1,0 +1,115 @@
+#login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0%;
+    padding-top: 10%;
+    min-height: 75vh;
+}
+
+.login-title {
+    font-family: "Rabidscience";
+    font-size: 35px;
+}
+
+.form-container {
+    text-align: center;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    font-size: 17px;
+    font-weight: 500;
+    color:rgb(204, 199, 199);
+    text-shadow: none;
+    background: transparent;
+    box-shadow: transparent;
+    border: 1px solid #555353;
+    transition: 0.5s ease;
+    user-select: none;
+    background: #555353;
+
+}
+
+.register-form-container {
+    margin-top: 10px;
+    text-align: center;
+    padding: 5px 15px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    font-size: 17px;
+    font-weight: 500;
+    color:rgb(204, 199, 199);
+    text-shadow: none;
+    background: transparent;
+    box-shadow: transparent;
+    border: 1px solid #555353;
+    transition: 0.5s ease;
+    user-select: none;
+    background: #555353;
+}
+
+.form-container:hover{
+    box-shadow: 0 0 5px #555353,
+                0 0 20px #555353,
+                0 0 50px #555353,
+                0 0 100px #555353;
+}
+
+.register-form-container:hover {
+    box-shadow: 0 0 5px #555353,
+                0 0 20px #555353,
+                0 0 50px #555353,
+                0 0 100px #555353;
+}
+
+
+#login .form-container input[type="text"],
+#login .form-container input[type="password"],
+#login .form-container input[type="email"],
+#login .form-container input[type="name"] {
+  margin-bottom: 5px;
+  width: 50%;
+  padding: 5px;
+  border: 1px solid rgb(204, 199, 199);
+  border-radius: 5px;
+  background-color:rgb(204, 199, 199);
+  /* Add more styles as needed */
+}
+
+.login-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #ffffff80;
+    text-shadow: none;
+    background: transparent;
+    box-shadow: transparent;
+    border: 1px solid #ffffff80;
+    transition: 0.5s ease;
+    user-select: none;
+}
+
+.login-button:hover {
+    color: #ffffff;
+    background: #555353;
+    border: 1px solid #555353;
+    text-shadow: 0 0 5px #ffffff,
+                0 0 10px #ffffff,
+                0 0 20px #ffffff;
+    
+}
+
+.custom-link {
+    color: rgb(16, 202, 62); /* Change default link color */
+    text-decoration: none; /* Remove default underline */
+    transition: color 0.3s ease; /* Add transition for color change */
+  }
+  
+  /* Style for the link on hover */
+  .custom-link:hover {
+    color: rgb(158, 255, 182); /* Change link color on hover */
+  }
+

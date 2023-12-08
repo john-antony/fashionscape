@@ -4,5 +4,6 @@ body {
   background-image: url('C:\Users\janto\fashionscape\public\assets\darkcrete.jpg'); /* Replace 'path_to_your_image.jpg' with the actual path to your image */
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   height: 100vh; /* Ensures the image covers the entire viewport height */
 }

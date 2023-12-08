@@ -1,0 +1,117 @@
+#home {
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-right: 70px;
+}
+
+.nav-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.home-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from parent */
+    /* Add any necessary styles to match the header */
+    /* For example, if you want the link to look like the styled header: */
+    display: inline-block; /* Ensure block behavior */
+}
+.fashionscape-home {
+    font-family: 'Rabidscience';
+    font-size: 40px;
+    transition: .3s ease-out;
+}
+
+.fashionscape-home:hover {
+    text-shadow: 0 0 5px #858585,
+                0 0 20px #858585,
+                0 0 50px #858585,
+                0 0 100px #858585;
+}
+
+
+#home .nav-bar input[type='text'].input-searchbar{
+    position: relative;
+    display: block;
+    color: rgb(34, 34, 34);
+    background: linear-gradient(142.99deg, rgba(217, 217, 217, 0.63) 15.53%, rgba(243, 243, 243, 0.63) 88.19%);
+    box-shadow: 0px 12px 24px -1px rgba(0, 0, 0,0.18);
+    border-color: rgba(7, 4, 14, 0);
+    border-radius: 50px;
+    block-size: 20px;
+    margin-left: 250px;
+    margin-right: auto;
+    padding: 18px 15px;
+    outline: none;
+    text-align: center;
+    width: 300px;
+    transition: 0.5s;
+}
+
+.search-icon {
+    position: absolute;
+    left: 600px; /* Adjust the icon position */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    color: #504f4f; /* Adjust icon color if necessary */
+  }
+
+  .profile-icon {
+    position: absolute;
+    left: 1400px; /* Adjust the icon position */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    color: #e6e6e6; /* Adjust icon color if necessary */
+  }
+  
+  .like-icon {
+    position: absolute;
+    left: 1350px; /* Adjust the icon position */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    color: #e6e6e6; /* Adjust icon color if necessary */
+  }
+
+  .chat-icon {
+    position: absolute;
+    left: 1300px; /* Adjust the icon position */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    color: #e6e6e6; /* Adjust icon color if necessary */
+  }
+
+.chat-icon:hover, .like-icon:hover, .profile-icon:hover {
+    filter: drop-shadow(0 0 5px #858585) 
+            drop-shadow(0 0 20px #858585) 
+            drop-shadow(0 0 50px #858585) 
+            drop-shadow(0 0 100px #858585);
+}
+
+#home .nav-bar input[type = "text"].input-searchbar:hover {
+    box-shadow: 0 0 5px #858585,
+                0 0 20px #858585,
+                0 0 50px #858585,
+                0 0 100px #858585;
+  }
+
+  .feed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Uniform width */
+    grid-gap: 20px; /* Equal spacing */
+  }
+  
+  .feed-card {
+    position: relative;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Occupy full width within the grid */
+    padding: 2rem 1.75rem;
+    background-color: #e6e6e6;
+    border-radius: 16px;
+  }

@@ -5,6 +5,9 @@ import Enter from './components/Enter';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
+import Profile from './components/Profile';
+import Likes from './components/Likes';
+import Chat from './components/Chat';
 import './App.css';
 
 function App() {
@@ -15,6 +18,9 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/home" element={<Home />} />
+        <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/likes" element={<Likes />} />
+        <Route exact path="/chat" element={<Chat />} />
       </Routes>
     </Router>
   );

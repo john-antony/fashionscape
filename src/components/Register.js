@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "../styles/Login.css";
 
 const Register = () => {
   const handleRegister = () => {
@@ -11,22 +12,30 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+    <div id='login'>
+      <div className='form-container'>
+        <h2 className='login-title'>Fashionscape</h2>
+        <form onSubmit={handleRegister}>
+          <div>
+            <input type="email" id="email" name="email" placeholder='Email' />
+          </div>
+          <div>
+            <input type="name" id="name" name="name" placeholder='Full Name' />
+          </div>
+          <div>
+            <input type="text" id="username" name="username" placeholder='Username'/>
+          </div>
+          <div>
+            <input type="password" id="password" name="password" placeholder='Password' />
+          </div>
+          <button type="submit" className='login-button'>Register</button>
+        </form>
+      </div>
+      <div className='register-form-container'>
+        <p>
+          Already have an account? <Link to="/login" className='custom-link'>Login</Link>
+        </p>
+      </div>
     </div>
   );
 };
