@@ -99,36 +99,6 @@
                 0 0 100px #858585;
   }
 
-  .feed-box {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  .feed-container {
-    width: 1400px;
-    margin: 20px auto;
-    columns: 4;
-    column-gap: 20px;
-  }
-
-  .feed-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 20px;
-  }
-
-  .feed-card {
-    width: 100%;
-    margin-bottom: 10px;
-    break-inside: avoid;
-  }
-
-  .feed-card img {
-    max-width: 100%;
-    border-radius: 15px;
-  }
-
   .masonry {
     margin-left: 25px;
   }

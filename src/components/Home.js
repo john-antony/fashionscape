@@ -55,25 +55,6 @@ const Home = () => {
       description: 'Description of Image 2',
     },]
   
-  // const masonryRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (masonryRef.current) {
-  //     const masonry = new Masonry(masonryRef.current, {
-  //       itemSelector: '.feed-card',
-  //       columnWidth: '.feed-card',
-  //       gutter: 40,
-  //     });
-      
-  //     const imgLoaded = imagesLoaded(masonryRef.current);
-  //     imgLoaded.on('always', () => {
-  //       masonry.layout();
-  //     });
-  //   }
-   
-  // }, [images]);
-    
-
   return (
     <div id='home'>
       <div className='nav-bar'>
@@ -97,18 +78,6 @@ const Home = () => {
         </div>
       </div>
       {/* <img src={`${process.env.PUBLIC_URL}/fits/archivepillar.jpg`} /> */}
-
-      {/* <div className='feed-box'>
-        <div className='feed-container'>
-          <div ref={masonryRef} className='feed-grid'>
-            {images.map((image, index) => (
-              <div key={index} className='feed-card'>
-                <img src={`${process.env.PUBLIC_URL}/fits/${image.url}`}/>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div> */}
 
       <div className='masonry'>
         <Masonry imageUrls={images} columnCount='5' gap="5"></Masonry>
