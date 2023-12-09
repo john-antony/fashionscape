@@ -40,18 +40,18 @@
     border-color: rgba(7, 4, 14, 0);
     border-radius: 50px;
     block-size: 20px;
-    margin-left: 250px;
+    margin-left: 300px;
     margin-right: auto;
     padding: 18px 15px;
     outline: none;
     text-align: center;
-    width: 300px;
+    width: 600px;
     transition: 0.5s;
 }
 
 .search-icon {
     position: absolute;
-    left: 600px; /* Adjust the icon position */
+    left: 650px; /* Adjust the icon position */
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
@@ -60,7 +60,7 @@
 
   .profile-icon {
     position: absolute;
-    left: 1400px; /* Adjust the icon position */
+    left: 1650px; /* Adjust the icon position */
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
@@ -69,7 +69,7 @@
   
   .like-icon {
     position: absolute;
-    left: 1350px; /* Adjust the icon position */
+    left: 1600px; /* Adjust the icon position */
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
@@ -78,7 +78,7 @@
 
   .chat-icon {
     position: absolute;
-    left: 1300px; /* Adjust the icon position */
+    left: 1550px; /* Adjust the icon position */
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
@@ -99,7 +99,6 @@
                 0 0 100px #858585;
   }
 
-
   .feed-box {
     margin: 0;
     padding: 0;
@@ -113,6 +112,12 @@
     column-gap: 20px;
   }
 
+  .feed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+  }
+
   .feed-card {
     width: 100%;
     margin-bottom: 10px;
@@ -124,4 +129,7 @@
     border-radius: 15px;
   }
 
+  .masonry {
+    margin-left: 25px;
+  }
   
