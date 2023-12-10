@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import Likes from './components/Likes';
 import Chat from './components/Chat';
+import Image from './components/Image';
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/home" element={<Home />} />
+        <Route exact path="/image" element={<Image />} />
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/likes" element={<Likes />} />
         <Route exact path="/chat" element={<Chat />} />

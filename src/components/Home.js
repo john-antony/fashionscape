@@ -78,12 +78,9 @@ const Home = () => {
         </div>
       </div>
       {/* <img src={`${process.env.PUBLIC_URL}/fits/archivepillar.jpg`} /> */}
-
       <div className='masonry'>
         <Masonry imageUrls={images} columnCount='6' gap="5"></Masonry>
       </div>
-
-
     </div>
   );
 };

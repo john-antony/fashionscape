@@ -12,6 +12,27 @@ code {
     monospace;
 }
 
+.image-container {
+  position: relative;
+}
+
+.favorite-icon {
+  color: red;
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image-container:hover .favorite-icon {
+  opacity: 1;
+}
+
+.favorite-icon:hover {
+  filter: brightness(75%);
+}
+
 .image {
   display: block;
   width: 100%;
@@ -26,7 +47,12 @@ code {
             drop-shadow(0 0 100px #858585); */
 
   filter: brightness(50%);
+  cursor: zoom-in;
 
   /* border: 5px solid #ffffff;
   margin: -5px; */
+}
+
+.image-container:hover .image:not(:hover) {
+  filter: brightness(50%);
 }
