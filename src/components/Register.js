@@ -1,14 +1,69 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import "../styles/Login.css";
+import axios from 'axios';
+
 
 const Register = () => {
-  const handleRegister = () => {
-    // Logic for handling user registration
-    // For now, we'll simulate a successful registration by redirecting to the login page
-    // Replace this with your actual registration logic
-    // For instance: history.push('/login') if registration is successful
-    console.log('Registered!');
+  const navigate = useNavigate();
+
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPass, setConfirmPassword] = useState('');
+
+  const handlePasswordChange = (event) => {
+    const {value} = event.target;
+    const password = document.getElementById('password').value;
+
+    if (password !== value) {
+      setPasswordError('Passwords do not match.');
+    } else {
+      if (!password && !value) {
+        setPasswordError('');
+      }
+      else {
+        setPasswordError('');
+        setConfirmPassword(value);
+      }
+    }
+  };
+
+  const handleRegister = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+
+    const password = formData.get('password');
+    const confirmPass = formData.get('confirmpass');
+
+    if ( password !== confirmPass) {
+      setPasswordError('Passwords do not match!');
+      return;
+    } else{
+      setPasswordError('');
+    }
+
+    const userData = {
+      email: formData.get('email'),
+      name: formData.get('name'),
+      username: formData.get('username'),
+      password,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:3001/register', userData);
+
+      if (response.status === 201){
+        console.log('Registration successful!');
+        navigate('/login');
+      }
+      else {
+        console.error('Registration failed. Try again.');
+      }
+    }
+
+    catch (error) {
+      console.error('Error occurred during registration:', error);
+    }
   };
 
   return (
@@ -28,6 +83,10 @@ const Register = () => {
           <div>
             <input type="password" id="password" name="password" placeholder='Password' />
           </div>
+          <div>
+            <input type="password" id="confirmpass" name="confirmpass" placeholder='Confirm Password' onChange={handlePasswordChange}/>
+          </div>
+          {passwordError && <p className='error-text'>{passwordError}</p>}
           <button type="submit" className='login-button'>Register</button>
         </form>
       </div>

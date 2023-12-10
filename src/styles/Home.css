@@ -97,6 +97,16 @@
                 0 0 20px #858585,
                 0 0 50px #858585,
                 0 0 100px #858585;
+    
+  }
+
+  #home .nav-bar input[type = "text"].input-searchbar:focus::placeholder {
+    color: transparent;
+
+  }
+
+  #home .nav-bar input[type = "text"].input-searchbar::placeholder {
+    color: #504f4f;
   }
 
   .masonry {

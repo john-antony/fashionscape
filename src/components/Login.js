@@ -1,15 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "../styles/Login.css";
+import axios from 'axios';
 
 const Login = () => {
-  const handleLogin = () => {
-    // Logic for handling login/authentication
-    // Redirect to home page upon successful login
-    // For now, we'll simulate a successful login by redirecting to the home page
-    // Replace this with your actual login logic
-    // For instance: history.push('/home') if the login is successful
-    console.log('Logged in!');
+  
+  const navigate = useNavigate();
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const userData = {
+      username: formData.get('username'),
+      password: formData.get('password'),
+    };
+
+    try {
+      const response = await axios.post('http://localhost:3001/login', userData);
+
+      if (response.status === 200){
+        const token = response.data.token;
+        // save token to localStorage
+        localStorage.setItem('token', token);
+        //redirect or other action after successful login
+        navigate('/home');
+      }
+      else{
+        console.error('Login failed. Try again.')
+        // handle failed login, display error message 
+      }
+    }
+    catch (error) {
+      console.error('Error occurred during login:', error);
+    }
   };
 
   return (

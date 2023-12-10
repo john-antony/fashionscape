@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -6,7 +6,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 // import Masonry from 'masonry-layout';
-import imagesLoaded from 'imagesloaded';
+// import imagesLoaded from 'imagesloaded';
 import Masonry from './Masonry.js';
 
 const Home = () => {
@@ -58,7 +58,7 @@ const Home = () => {
   return (
     <div id='home'>
       <div className='nav-bar'>
-        <Link to="/home" className='home-link'>
+        <Link to="/" className='home-link'>
           <h1 className='fashionscape-home'>Fashionscape</h1>
         </Link>
         <div className='input-searchbar'>
@@ -80,7 +80,7 @@ const Home = () => {
       {/* <img src={`${process.env.PUBLIC_URL}/fits/archivepillar.jpg`} /> */}
 
       <div className='masonry'>
-        <Masonry imageUrls={images} columnCount='5' gap="5"></Masonry>
+        <Masonry imageUrls={images} columnCount='6' gap="5"></Masonry>
       </div>
 
 
