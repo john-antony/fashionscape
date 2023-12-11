@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { useNavigate } from 'react-router-dom';
 
 export default function Masonry(props) {
   const navigate = useNavigate();
-  const [hoverIndex, setHoverIndex] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+
+  const handleImageClick = (index) => {
+    setSelectedImageIndex(index);
+    navigate(`/image/${index}`);
+  }
 
   return (
     <div style={{ columns: props.columnCount, gutter: 0 }}>
@@ -12,17 +18,17 @@ export default function Masonry(props) {
         <div
           key={i}
           className="image-container"
-          onClick={() => navigate('/image')}
-          onMouseEnter={() => setHoverIndex(i)}
-          onMouseLeave={() => setHoverIndex(null)}
+          onMouseEnter={() => setSelectedImageIndex(i)}
+          onMouseLeave={() => setSelectedImageIndex(null)}
           style={{ padding: props.gap / 2 }}
         >
           <img
             src={`${process.env.PUBLIC_URL}/fits/${img.url}`}
             alt=""
             className="image"
+            onClick={() => handleImageClick(i)}
           />
-          {hoverIndex === i && <FavoriteIcon className="favorite-icon" fontSize='large'/>}
+          {selectedImageIndex === i && <FavoriteBorderOutlinedIcon className="favorite-icon" fontSize='large'/>}
         </div>
       ))}
     </div>

@@ -9,52 +9,8 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 // import imagesLoaded from 'imagesloaded';
 import Masonry from './Masonry.js';
 
-const Home = () => {
+const Home = ({images}) => {
 
-  const images = [
-    {
-      url: 'archivepillar.jpg',
-      alt: 'archive pillar',
-      title: 'Title of Image 1',
-      description: 'Description of Image 1',
-    },
-    {
-      url: 'Bottega Veneta Fall 2023 Milan - Fashionably Male.jpg',
-      alt: 'Bottega',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'Junya Watanabe Fall 2006 Ready-to-Wear Fashion Show.jpg',
-      alt: 'Junya',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'PAF.jpg',
-      alt: 'PAF',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'CDG.jpg',
-      alt: 'CDG',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'Rick Owens Spring 2011 Menswear Fashion Show.jpg',
-      alt: 'Rick Owens',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'Yohji Yamamoto _ Menswear - Autumn 2020 _ Look 12.jpg',
-      alt: 'Yohji Yamamoto',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },]
-  
   return (
     <div id='home'>
       <div className='nav-bar'>
