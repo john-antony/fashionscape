@@ -58,6 +58,15 @@
   color: #504f4f; /* Adjust icon color if necessary */
 }
 
+.add-icon {
+  position: absolute;
+  left: 1500px; /* Adjust the icon position */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: #e6e6e6;
+}
+
 .profile-icon {
   position: absolute;
   left: 1650px; /* Adjust the icon position */
@@ -85,7 +94,7 @@
   color: #e6e6e6; /* Adjust icon color if necessary */
 }
 
-.chat-icon:hover, .like-icon:hover, .profile-icon:hover {
+.add-icon:hover, .chat-icon:hover, .like-icon:hover, .profile-icon:hover {
   filter: drop-shadow(0 0 5px #858585) 
           drop-shadow(0 0 20px #858585) 
           drop-shadow(0 0 50px #858585) 

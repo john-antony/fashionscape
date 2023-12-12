@@ -1,4 +1,5 @@
 
+const generateUploadURL = require('./s3.js');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -31,6 +32,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/fashionscape', {
 
 app.use(bodyParser.json());
 app.use(cors());
+
+app.get('/s3Url', async (req, res) => {
+  const { title, description } = req.query; // Extract title and description from query params 
+  const url = await generateUploadURL({title, description});
+  res.send({url});
+})
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;

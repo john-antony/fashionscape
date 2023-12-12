@@ -6,6 +6,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+
 
 const Image = ({images}) => {
 
@@ -25,6 +27,9 @@ const Image = ({images}) => {
                 <div className='input-searchbar'>
                     <SearchOutlinedIcon className='search-icon'/>
                     <input type='text' id='searchbar' name='searchbar' placeholder='Search'className='input-searchbar'/>
+                    <Link to="/create">
+                        <AddCircleIcon className='add-icon'/>
+                    </Link>
                     <Link to="/Chat">
                         <ChatBubbleIcon className='chat-icon'/>
                     </Link>
@@ -33,7 +38,7 @@ const Image = ({images}) => {
                     </Link>
                     <Link to="/Profile">
                         <PersonIcon className='profile-icon'/>          
-                    </Link>
+                    </Link>0
                 </div>
             </div>
             <div className='centered-image'>

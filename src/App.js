@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import Likes from './components/Likes';
 import Chat from './components/Chat';
 import Image from './components/Image';
+import Create from './components/Create';
 import './App.css';
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/home" element={<Home images={images}/>} />
         <Route exact path="/image/:imageId" element={<Image images={images}/>} />
+        <Route exact path="/create" element={<Create />} />
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/likes" element={<Likes />} />
         <Route exact path="/chat" element={<Chat />} />
