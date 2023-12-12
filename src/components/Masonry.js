@@ -23,7 +23,7 @@ export default function Masonry(props) {
           style={{ padding: props.gap / 2 }}
         >
           <img
-            src={`${process.env.PUBLIC_URL}/fits/${img.url}`}
+            src={img.url}
             alt=""
             className="image"
             onClick={() => handleImageClick(i)}

@@ -1,5 +1,5 @@
 // Import necessary modules and components
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Enter from './components/Enter';
 import Login from './components/Login';
@@ -11,52 +11,29 @@ import Chat from './components/Chat';
 import Image from './components/Image';
 import Create from './components/Create';
 import './App.css';
+import axios from 'axios';
 
 function App() {
-  const images = [
-    {
-      url: 'archivepillar.jpg',
-      alt: 'archive pillar',
-      title: 'Title of Image 1',
-      description: 'Description of Image 1',
-    },
-    {
-      url: 'Bottega Veneta Fall 2023 Milan - Fashionably Male.jpg',
-      alt: 'Bottega',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'Junya Watanabe Fall 2006 Ready-to-Wear Fashion Show.jpg',
-      alt: 'Junya',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'PAF.jpg',
-      alt: 'PAF',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'CDG.jpg',
-      alt: 'CDG',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'Rick Owens Spring 2011 Menswear Fashion Show.jpg',
-      alt: 'Rick Owens',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },
-    {
-      url: 'Yohji Yamamoto _ Menswear - Autumn 2020 _ Look 12.jpg',
-      alt: 'Yohji Yamamoto',
-      title: 'Title of Image 2',
-      description: 'Description of Image 2',
-    },]
+  const [images, setImages] = useState([]);
 
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/images');
+        setImages(response.data);
+        console.log(response.data);
+      }
+      catch (error) {
+        
+        console.error('Failed to fetch images:', error);
+
+  
+      }
+    };
+    fetchImages();
+  }, []);
+  
   return (
     <Router>
       <Routes>
