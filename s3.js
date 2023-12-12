@@ -14,6 +14,55 @@ const s3 = new aws.S3({
     signatureVersion: 'v4'
 });
 
+async function fetchDataFromS3() {
+    try{
+        const params = {
+            Bucket: bucketName,
+        };
+
+        const data = await s3.listObjectsV2(params).promise();
+
+        console.log(data); 
+
+        const imagesData = await Promise.all(
+            data.Contents.map(async (item) => {
+                
+                const imageKey = item.Key;
+                const imageUrl = `https://${params.Bucket}.s3.amazonaws.com/${imageKey}`;
+
+                console.log(imageUrl);
+        
+                // Fetch metadata for the current image
+                const headParams = {
+                    Bucket: params.Bucket,
+                    Key: imageKey,
+                };
+        
+                const metadata = await s3.headObject(headParams).promise();
+        
+                // Extract specific metadata fields (title, description)
+                const title = metadata.Metadata['x-amz-meta-title'] || 'Image Title';
+                const description = metadata.Metadata['x-amz-meta-description'] || 'Image Description';
+
+                console.log(title);
+                console.log(description);
+
+                return {
+                    url: imageUrl,
+                    title,
+                    description,
+                };
+            })
+        );
+      
+        return imagesData;
+    } 
+    catch (error) {
+        throw new Error('Failed to fetch data from S3:', error.message);
+    }
+};
+
+
 async function generateUploadURL({title, description}) {
     const rawBytes = crypto.randomBytes(16);
     const imageName = rawBytes.toString('hex');
@@ -32,4 +81,4 @@ async function generateUploadURL({title, description}) {
     return uploadURL
 }
 
-module.exports = generateUploadURL; // Exporting the function directly
+module.exports = {generateUploadURL, fetchDataFromS3}; // Exporting the function directly

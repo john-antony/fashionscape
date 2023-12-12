@@ -42,7 +42,7 @@ const Image = ({images}) => {
                 </div>
             </div>
             <div className='centered-image'>
-                <img src={`${process.env.PUBLIC_URL}/fits/${selectedImage.url}`} alt="" className='image-proportions'></img>
+                <img src={selectedImage.url} alt="" className='image-proportions'></img>
             </div>
         </div>
     );

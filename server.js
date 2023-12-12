@@ -1,5 +1,5 @@
 
-const generateUploadURL = require('./s3.js');
+const {generateUploadURL, fetchDataFromS3} = require('./s3.js');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -38,6 +38,16 @@ app.get('/s3Url', async (req, res) => {
   const url = await generateUploadURL({title, description});
   res.send({url});
 })
+
+app.get('/images', async (req, res) => {
+  try{
+    const images = await fetchDataFromS3();
+    res.status(200).json(images);
+  }
+  catch (error) {
+    res.status(500).json({message: 'Failed to fetch images', error: error.message});
+  }
+});
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
