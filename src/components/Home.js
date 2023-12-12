@@ -5,6 +5,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 // import Masonry from 'masonry-layout';
 // import imagesLoaded from 'imagesloaded';
 import Masonry from './Masonry.js';
@@ -21,6 +22,9 @@ const Home = ({images}) => {
           <SearchOutlinedIcon className='search-icon'/>
           <input type='text' id='searchbar' name='searchbar' placeholder='Search'className='input-searchbar'/>
           <div className='menu-icons'>
+            <Link to="/create">
+              <AddCircleIcon className='add-icon'/>
+            </Link>
             <Link to="/chat">
               <ChatBubbleIcon className='chat-icon'/>
             </Link>

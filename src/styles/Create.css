@@ -1,0 +1,64 @@
+#create {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15px;
+    min-height: 80vh; /* Adjust the height as needed */
+    position: relative;
+  }
+  
+  .create-post-form {
+    width: 20%; /* Adjust the width of the form */
+    margin-top: 20px; /* Add some top margin for spacing */
+    padding: 10%; /* Adjust the padding as needed */
+    text-align: center;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #555353;
+    background: #ffffff; /* Change background color */
+    border: 1px solid #ccc; /* Adjust border styles */
+  }
+  
+  .create-post-form input[type="file"]{
+    display: block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #fff;
+    background: #555353;
+    border: 1px solid #555353;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+
+  .create-post-form input[type="text"],
+  .create-post-form textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px; /* Adjust spacing between input elements */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .post-button {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #fff;
+    background: #555353;
+    border: 1px solid #555353;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+  }
+  
+  .post-button:hover {
+    color: #fff;
+    background: #333;
+  }
+  
