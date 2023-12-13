@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -11,6 +11,12 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Masonry from './Masonry.js';
 
 const Home = ({images}) => {
+  const [refreshedImages, setRefreshedImages] = useState([]);
+
+  useEffect(() => {
+    setRefreshedImages(images);
+  }, [images]);
+
 
   return (
     <div id='home'>
@@ -39,7 +45,7 @@ const Home = ({images}) => {
       </div>
       {/* <img src={`${process.env.PUBLIC_URL}/fits/archivepillar.jpg`} /> */}
       <div className='masonry'>
-        <Masonry imageUrls={images} columnCount='6' gap="5"></Masonry>
+        <Masonry images={refreshedImages} columnCount='6' gap="5"></Masonry>
       </div>
     </div>
   );

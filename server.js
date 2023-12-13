@@ -1,13 +1,15 @@
 
-const {generateUploadURL, fetchDataFromS3} = require('./s3.js');
+const {generateUploadURL, fetchDataFromS3, uploadToS3, s3} = require('./s3.js');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const User = require('./mongo.js');
+const {User, Post} = require('./mongo.js');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const uuid = require('uuid');
 
 // Assuming you have a User model and 'SECRET_KEY' is your secret key for JWT
 
@@ -33,21 +35,79 @@ mongoose.connect('mongodb://127.0.0.1:27017/fashionscape', {
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/s3Url', async (req, res) => {
-  const { title, description } = req.query; // Extract title and description from query params 
-  const url = await generateUploadURL({title, description});
-  res.send({url});
-})
 
-app.get('/images', async (req, res) => {
-  try{
-    const images = await fetchDataFromS3();
-    res.status(200).json(images);
+const upload = multer({dest: 'uploads/'});
+
+app.post('/storePosts', async (req, res) => {
+  const {imageURL, title, description } = req.body;
+
+  try {
+    const newPost = new Post({
+      imageURL,
+      title,
+      description
+    });
+
+    const savedPost = await newPost.save();
+    res.json({message: 'Post information stored successfully!', post: savedPost});
   }
-  catch (error) {
-    res.status(500).json({message: 'Failed to fetch images', error: error.message});
+  catch (error){
+    console.error('Error storing post', error);
+    res.status(500).json({error: 'Error storing post'});
+
   }
 });
+
+app.post('/uploadToS3', upload.single('file'), async (req, res) => {
+  const file = req.file;
+
+  const key = `uploads/${uuid.v4()}_${file.originalname}`;
+
+  const params = {
+    Bucket: "fashionscape-user-upload",
+    Key: key,
+    Body: require('fs').createReadStream(file.path),
+    ContentType: file.mimetype
+  };
+  try {
+    const data = await s3.upload(params).promise(); // Use promise() to convert upload to a promise
+
+    res.json({ url: data.Location });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error uploading to S3' });
+  };
+
+});
+
+// app.get('/s3Url', async (req, res) => {
+//   const { title, description } = req.query; // Extract title and description from query params 
+//   const url = await generateUploadURL({title, description});
+//   res.send({url});
+// })
+
+app.get('/images', async (req, res) => {
+  try {
+    const params = {
+      Bucket: 'fashionscape-user-upload',
+      Prefix: 'uploads/'
+    };
+
+    const data = await s3.listObjectsV2(params).promise();
+
+    const images = data.Contents.map(obj => {
+      return {
+        imageURL: `https://${params.Bucket}.s3.amazonaws.com/${obj.Key}`,
+      };
+    });
+    res.json(images);
+  }
+  catch (error) {
+    console.error('Error fetching images from S3: ', error);
+    res.status(500).json({error: 'Failed to fetch images'});
+  }
+});
+  
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
