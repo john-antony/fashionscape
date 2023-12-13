@@ -6,6 +6,14 @@ const userSchema = new mongoose.Schema({
     password: {type: String, required: true},
 });
 
+const postSchema = new mongoose.Schema({
+    imageURL: {type: String, required: true},
+    title: {type: String, required: true},
+    description: { type: String}
+});
+
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+const Post = mongoose.model('Post', postSchema);
+
+module.exports = {User, Post};

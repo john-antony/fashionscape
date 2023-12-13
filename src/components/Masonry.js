@@ -14,7 +14,7 @@ export default function Masonry(props) {
 
   return (
     <div style={{ columns: props.columnCount, gutter: 0 }}>
-      {props.imageUrls.map((img, i) => (
+      {props.images.map((img, i) => (
         <div
           key={i}
           className="image-container"
@@ -23,7 +23,7 @@ export default function Masonry(props) {
           style={{ padding: props.gap / 2 }}
         >
           <img
-            src={img.url}
+            src={img.imageURL}
             alt=""
             className="image"
             onClick={() => handleImageClick(i)}
