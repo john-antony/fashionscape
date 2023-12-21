@@ -16,20 +16,30 @@ code {
   position: relative;
 }
 
-.favorite-icon {
+.outlined-favorite-icon {
   color: red;
   position: absolute;
   top: 5%;
   right: 10%;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
 }
 
-.image-container:hover .favorite-icon {
+.favorite-icon {
+  color: red;
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.image-container:hover .outlined-favorite-icon {
   opacity: 1;
 }
 
-.favorite-icon:hover {
+.outlined-favorite-icon:hover, .favorite-icon:hover {
   filter: brightness(75%);
 }
 

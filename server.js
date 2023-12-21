@@ -10,6 +10,8 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const uuid = require('uuid');
+// const http = require('http');
+// const socketIo = require('socket.io');
 
 // Assuming you have a User model and 'SECRET_KEY' is your secret key for JWT
 
@@ -34,9 +36,21 @@ mongoose.connect('mongodb://127.0.0.1:27017/fashionscape', {
 
 app.use(bodyParser.json());
 app.use(cors());
-
-
 const upload = multer({dest: 'uploads/'});
+
+// const server = http.createServer(app);
+
+// server.listen(3001);
+
+// const io = socketIo.listen(server);
+
+// io.on('connection', (socket) => {
+//   console.log('Client connected:', socket.id);
+
+//   socket.on('disconnect', () => {
+//     console.log('Client disconnected:', socket.id);
+//   });
+// });
 
 app.post('/storePosts', async (req, res) => {
   const {imageURL, title, description } = req.body;
@@ -49,12 +63,13 @@ app.post('/storePosts', async (req, res) => {
     });
 
     const savedPost = await newPost.save();
+
+    // io.emit('newImage', {imageURL, title, description});
     res.json({message: 'Post information stored successfully!', post: savedPost});
   }
   catch (error){
     console.error('Error storing post', error);
     res.status(500).json({error: 'Error storing post'});
-
   }
 });
 
@@ -66,6 +81,7 @@ app.post('/uploadToS3', upload.single('file'), async (req, res) => {
   const params = {
     Bucket: "fashionscape-user-upload",
     Key: key,
+    // Body: file.buffer,
     Body: require('fs').createReadStream(file.path),
     ContentType: file.mimetype
   };
@@ -110,13 +126,13 @@ app.get('/images', async (req, res) => {
   
 
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const {username, password} = req.body;
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({username});
 
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+    if (!user){
+      return res.status(404).json({message: 'User does not exist.'});
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -125,14 +141,13 @@ app.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: '1h' });
-
-    res.status(200).json({ token });
-  } catch (error) {
-    res.status(500).json({ message: 'Login failed', error: error.message });
+    return res.status(200).json({email: user.email});
+  }
+  catch (error) {
+    res.status(500).json({ message: 'Error fetching user email', error: error.message});
   }
 });
+
 
 app.post('/register', async (req, res) => {
     const { email, name, username, password} = req.body;
@@ -154,6 +169,64 @@ app.post('/register', async (req, res) => {
         res.status(500).json({ message: 'Registration failed', error: error.message});
     }
 });
+
+app.post('/addlike', async (req, res) => {
+  const {username, imageURL} = req.body;
+
+  try {
+    const user = await User.findOne({username});
+
+    if (!user) {
+      return res.status(404).json({message: 'User not found'});
+    }
+
+    const isLiked = user.likedImageUrls.includes(imageURL);
+
+    if (isLiked) {
+      user.likedImageUrls = user.likedImageUrls.filter((likedImage) => 
+      likedImage !== imageURL);
+
+    }
+    else {
+      user.likedImageUrls.push(imageURL);
+    }
+
+    await user.save();
+
+    const post = await Post.findOne({imageURL});
+
+    if (post) {
+      post.likes += 1;
+      await post.save();
+    }
+
+    res.status(200).json({message: 'Likes updates successfully', isLiked: !isLiked})
+  }
+  catch (error) {
+    console.error('Error updating like:', error);
+    res.status(500).json({message: 'Internal Service Error'});
+  }
+
+  
+})
+
+app.get('/likedimages/:username', async (req, res) => {
+  const {username} = req.params;
+
+  try {
+    const user = await User.findOne({username});
+
+    if (!user) {
+      return res.status(404).json({message: 'User not found'});
+    }
+
+    const likedImages = user.likedImageUrls || [];
+    res.status(200).json({likedImages});
+  }
+  catch (error) {
+    res.status(500).json({message: 'Internal server error'});
+  }
+})
 
 app.listen(3001, () => {
     console.log('Server is running on port 3001');

@@ -94,6 +94,40 @@
   color: #e6e6e6; /* Adjust icon color if necessary */
 }
 
+.signout-button {
+    position: absolute;
+    margin-top: 9px;
+    padding: 5px 10px;
+    left: 1700px;
+    top: 42%;
+    transform: translateY(-50%);
+    z-index: 1;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #ffffff80;
+    text-shadow: none;
+    background: transparent;
+    box-shadow: transparent;
+    border: 1px solid #ffffff80;
+    transition: 0.5s ease;
+    user-select: none;
+}
+
+.signout-button:hover {
+    color: #ffffff;
+    background: #555353;
+    border: 1px solid #555353;
+    text-shadow: 0 0 5px #ffffff,
+                0 0 10px #ffffff,
+                0 0 20px #ffffff;
+    box-shadow: 0 0 5px #555353,
+                0 0 20px #555353,
+                0 0 50px #555353,
+                0 0 100px #555353;
+}
+
 .add-icon:hover, .chat-icon:hover, .like-icon:hover, .profile-icon:hover {
   filter: drop-shadow(0 0 5px #858585) 
           drop-shadow(0 0 20px #858585) 

@@ -2,40 +2,42 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "../styles/Login.css";
 import axios from 'axios';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Import Firebase authentication functions
+import {auth} from '../firebase.js';
+import { useUser } from './UserContext.js';
 
 const Login = () => {
   
   const navigate = useNavigate();
+  const { loginUser } = useUser();
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
     const formData = new FormData(event.target);
-    const userData = {
-      username: formData.get('username'),
-      password: formData.get('password'),
-    };
+    const username = formData.get('username');
+    const password = formData.get('password');
 
     try {
-      const response = await axios.post('http://localhost:3001/login', userData);
+      const response = await axios.post('http://localhost:3001/login', {username, password});
 
-      if (response.status === 200){
-        const token = response.data.token;
-        // save token to localStorage
-        localStorage.setItem('token', token);
-        //redirect or other action after successful login
+      if (response.status === 200 && response.data.email) {
+        console.log('Response: ', response);
+        const {email} = response.data;
+        const auth = getAuth();
+        await signInWithEmailAndPassword(auth, email, password);
+        loginUser({username});
         navigate('/home');
       }
-      else{
-        console.error('Login failed. Try again.')
-        // handle failed login, display error message 
+      else {
+        console.error('User not found.');
       }
     }
     catch (error) {
-      console.error('Error occurred during login:', error);
+      console.error('Login Failed:', error);
     }
   };
 
+  
   return (
     <div id="login">
       <div className='form-container'>
