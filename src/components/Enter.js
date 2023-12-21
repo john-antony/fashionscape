@@ -6,7 +6,7 @@ const Enter = () => {
   return (
     <div id='enter'>
       <h1 className='title'>Fashionscape</h1>
-        <Link to="/home">
+        <Link to="/login">
           <button className='button'>Enter</button>
         </Link>
     </div>

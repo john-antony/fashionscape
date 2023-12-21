@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "../styles/Login.css";
 import axios from 'axios';
-
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'; // Import Firebase authentication functions
+import {auth} from '../firebase.js';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -50,17 +51,16 @@ const Register = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3001/register', userData);
 
-      if (response.status === 201){
-        console.log('Registration successful!');
-        navigate('/login');
-      }
-      else {
-        console.error('Registration failed. Try again.');
-      }
+      const auth = getAuth();
+
+      await createUserWithEmailAndPassword(auth, userData.email, password);
+
+      await axios.post('http://localhost:3001/register', userData);
+
+      alert('Registration Successful!');
+      navigate('/login');
     }
-
     catch (error) {
       console.error('Error occurred during registration:', error);
     }

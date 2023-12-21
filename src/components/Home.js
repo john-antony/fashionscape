@@ -6,16 +6,29 @@ import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+// import io from 'socket.io-client';
 // import Masonry from 'masonry-layout';
 // import imagesLoaded from 'imagesloaded';
 import Masonry from './Masonry.js';
 
 const Home = ({images}) => {
+  // const socket = io.connect('http://localhost:3001');
+
   const [refreshedImages, setRefreshedImages] = useState([]);
 
   useEffect(() => {
     setRefreshedImages(images);
   }, [images]);
+
+  // useEffect(() => {
+  //   socket.on('newImage', (newImage) => {
+  //     setImages((prevImages) => [newImage, ...prevImages]);
+  //   });
+
+  //   return () => {
+  //     socket.off('newImage');
+  //   };
+  // }, []);
 
 
   return (
@@ -40,6 +53,7 @@ const Home = ({images}) => {
             <Link to="/profile">
               <PersonIcon className='profile-icon'/>          
             </Link>
+            <button className='signout-button'>Log In</button>
           </div>
         </div>
       </div>
