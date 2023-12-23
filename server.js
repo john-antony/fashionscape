@@ -228,6 +228,52 @@ app.get('/likedimages/:username', async (req, res) => {
   }
 })
 
+app.get('/posts/search', async (req, res) => {
+  const {imageURL} = req.query;
+
+  try {
+
+    const indexOfUploads = imageURL.lastIndexOf('/uploads');
+    const substring = indexOfUploads !== -1 ? imageURL.substring(indexOfUploads + 9) : null;
+
+    const encodedSubstring = encodeURIComponent(substring);
+    
+    if (!encodedSubstring) {
+      return res.status(400).json({message: 'Invalid imageURL'});
+    }
+
+    const post = await Post.findOne({imageURL: { $regex: encodedSubstring }});
+
+    if (!post) {
+      return res.status(404).json({message: 'Image post not found'});
+    }
+
+    res.status(200).json({post});
+  }
+  catch (error) {
+    console.error('Error fetching image post', error);
+    res.status(500).json({message: 'Server error'});
+  }
+});
+
+app.get('/posts/:postId', async (req, res) => {
+  const {postId} = req.params;
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({message: 'Post not found'});
+    }
+
+    res.status(200).json(post);
+  }
+  catch (error) {
+    console.error('Error fetching post with postId:', error);
+    res.status(500).json({message: 'Server error'});
+  }
+});
+
 app.listen(3001, () => {
     console.log('Server is running on port 3001');
 });

@@ -1,27 +1,65 @@
-/* Image.css
-#image-details {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  } */
-  
-/* CSS */
 .centered-image {
-    overflow: hidden;
-    border-radius: 35px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    height: 80vh;
-    background-color: #f7f7f7;
-  }
-  
-  .image-proportions {
-    height: 80vh;
-     /* Border radius applied only to the left side */
-  }
-  
-  
-  /* Add additional styling as needed */
-  
+  overflow: hidden;
+  border-radius: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  /* height: 100vh; */
+  background-color: #f7f7f7;
+}
+
+.image-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+/* Main container holding the image and details */
+.image-details-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 1200px; /* Adjust max-width as needed */
+  /* padding: 10px; */
+  background-color: #fff;
+  /* border-radius: 35px; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the image */
+.image-container {
+  grid-column: 1 / 2;
+  /* border-radius: 35px; */
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* border-radius: 16px; */
+}
+
+/* Container for image details */
+.details-container {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  margin-right: 5%;
+  gap: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Title */
+.post-title {
+  font-size: 46px;
+  font-weight: bold;
+}
+
+/* Description */
+.post-description {
+  margin-top: -2%;
+  font-size: 24px;
+}
