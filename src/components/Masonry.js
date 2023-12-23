@@ -30,9 +30,31 @@ export default function Masonry(props) {
     fetchLikedImages();
   }, [user]);
 
-  const handleImageClick = (index) => {
-    setSelectedImageIndex(index);
-    navigate(`/image/${index}`);
+  function normalizeURL(url) {
+    const urlParts = url.split('/');
+    const normalizedURL = urlParts
+      .filter(part => !part.includes('.amazonaws.com'))
+      .join('/');
+    return normalizedURL;
+  }
+
+  const handleImageClick = async (imageURL) => {
+    try {
+      const normalizedURL = normalizeURL(imageURL);
+      console.log(normalizedURL);
+      const response = await axios.get(`http://localhost:3001/posts/search?imageURL=${normalizedURL}`);
+      if (response.status === 200) {
+        const {post} = response.data;
+
+        console.log('Post Information:', post);
+
+        navigate(`/image/${post._id}`);
+      }
+    }
+    catch (error) {
+      console.error('Error fetching post information', error);
+    }
+    
   }
 
   const handleLikeClick = async (index, imageURL) => {
@@ -88,7 +110,7 @@ export default function Masonry(props) {
             src={img.imageURL}
             alt=""
             className="image"
-            onClick={() => handleImageClick(i)}
+            onClick={() => handleImageClick(img.imageURL)}
           />
           {likedImages.includes(img.imageURL) ? (
             <FavoriteIcon
