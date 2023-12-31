@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import '../styles/Chat.css';
@@ -13,6 +13,15 @@ const Chat = () => {
     const { messages, input, handleInputChange, handleSubmit } = useChat({
         api: 'http://localhost:3001/chat-stream', // Replace with your actual server endpoint
     });
+
+    const chatWindowRef = useRef(null);
+
+    useEffect(() => {
+        // Scroll chat window to bottom on new message
+        if (chatWindowRef.current) {
+            chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     return (
         <div id='home'>
@@ -41,11 +50,12 @@ const Chat = () => {
                 </div>
             </div>
             <div className='centered-chat-container'>
-                <div className="chat-window">
+                <div className="chat-window" ref={chatWindowRef}>
                     {/* Display chat messages */}
                     {messages.map((message, index) => (
                         <div key={index}>
-                            {message.role === 'user' ? <strong>You:</strong> : <strong>Style Bot:</strong>} {message.content}
+                            {message.role === 'user' ? <strong>You:</strong> : <strong>Style Bot:</strong>}
+                            <div style={{ whiteSpace: 'pre-line' }}>{message.content}</div>
                         </div>
                     ))}
                 </div>
