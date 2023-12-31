@@ -1,0 +1,92 @@
+.centered-chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    margin-left: 4%;
+}
+
+.chat-window {
+    flex: 1; /* Fill remaining vertical space */
+    width: 100%; /* Take full width */
+    max-width: 600px; /* Adjust max-width as needed */
+    border: 2px solid #ccc;
+    background-color: #ccc;
+    border-radius: 16px 16px 0 0; 
+    padding: 10px;
+    overflow-y: auto;
+    margin-bottom: 0px; /* Adjust margin as needed */
+}
+
+.input-area {
+    display: flex;
+    width: 100%; /* Take full width */
+    max-width: 604px; /* Adjust max-width as needed */
+    margin-bottom: 10px; 
+    background-color:#9e9d9d;
+    border-radius: 0 0 16px 16px; 
+    padding: 10px;
+
+    /* Adjust margin as needed */
+}
+
+.input-area input {
+    flex: 1;
+    margin-top: 0px;
+    padding: 12px 10px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #ffffff80;
+    text-shadow: none;
+    background: #555353;
+    box-shadow: transparent;
+    /* border: 1px solid #ffffff80; */
+    transition: 0.5s ease;
+    user-select: none;
+}
+
+.input-area input::placeholder {
+    text-transform: uppercase;
+    color: #ccc;
+    transition: 0.3s ease;
+    text-shadow: none;
+
+
+}
+
+.input-area input:hover::placeholder {
+    color: #ffffff;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+}
+
+.input-area input:focus::placeholder {
+    color: transparent;
+    text-shadow: none;
+
+}
+
+.chat-button {
+    margin-top: 0px;
+    margin-left: 10px; /* Adjust margin as needed */
+    padding: 5px 10px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #ffffff80;
+    text-shadow: none;
+    background: #555353;
+    box-shadow: transparent;
+    border: 1px solid #ffffff80;
+    transition: 0.5s ease;
+    user-select: none;
+}
+
+.chat-button:hover {
+    color: #ffffff;
+    background: #555353;
+    border: 1px solid #555353;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+}

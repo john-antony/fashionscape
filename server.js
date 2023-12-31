@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const {generateUploadURL, fetchDataFromS3, uploadToS3, s3} = require('./s3.js');
 const express = require('express');
 const app = express();
@@ -16,6 +16,14 @@ const uuid = require('uuid');
 // Assuming you have a User model and 'SECRET_KEY' is your secret key for JWT
 
 const crypto = require('crypto');
+
+const {OpenAI} = require("openai");
+const { OpenAIStream, StreamingTextResponse } = require('ai');
+
+
+const apiKey = process.env.OPENAI_API_KEY;
+
+const openai = new OpenAI({key: apiKey});
 
 // Generate a secure random string for your secret key
 const generateSecretKey = () => {
@@ -38,6 +46,7 @@ app.use(bodyParser.json());
 app.use(cors());
 const upload = multer({dest: 'uploads/'});
 
+
 // const server = http.createServer(app);
 
 // server.listen(3001);
@@ -51,6 +60,44 @@ const upload = multer({dest: 'uploads/'});
 //     console.log('Client disconnected:', socket.id);
 //   });
 // });
+
+app.post('/chat-stream', async (req, res) => {
+  const { messages } = req.body;
+
+  console.log('Messages:', messages);
+
+  try {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      stream: true,
+      messages: [
+        {
+          role: 'system',
+          content:
+            'You are a personal stylist bot for the web application Fashionscape. You only respond to fashion-related questions.',
+        }, ...messages
+        
+      ],
+      max_tokens: 200,
+    });
+
+    const stream = OpenAIStream(response);
+
+    console.log('Stream:', stream);
+
+    for await (const chunk of stream) {
+      res.write(chunk);
+      console.log('chunk:', chunk);
+    }
+
+    res.end(); // End the response stream
+  } // Send the streaming response directly to the client
+   catch (error) {
+    console.error('Error sending message:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 app.post('/storePosts', async (req, res) => {
   const {imageURL, title, description } = req.body;
