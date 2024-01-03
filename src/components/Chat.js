@@ -61,7 +61,7 @@ const Chat = () => {
                 </div>
                 {/* Input field to send messages */}
                 <div className="input-area">
-                    <form onSubmit={handleSubmit}>
+                    <form className="chat-form" onSubmit={handleSubmit}>
                         <input
                             type="text"
                             value={input}

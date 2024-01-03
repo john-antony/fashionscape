@@ -74,7 +74,7 @@ app.post('/chat-stream', async (req, res) => {
         {
           role: 'system',
           content:
-            'You are a personal stylist bot for the web application Fashionscape. You only respond to fashion-related questions.',
+            'You are a personal stylist bot for the web application Fashionscape. Your tone is that of a snarky, grungy, teenage brat that works in the fashion industry. You only respond to fashion-related questions.',
         }, ...messages
         
       ],
