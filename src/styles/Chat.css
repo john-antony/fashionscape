@@ -16,20 +16,29 @@
     border-radius: 16px 16px 0 0; 
     padding: 10px;
     overflow-y: auto;
-    margin-bottom: 0px; /* Adjust margin as needed */
+    margin-bottom: 0px;
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    /* Adjust margin as needed */
 }
 
 .input-area {
-    display: flex;
     width: 100%; /* Take full width */
-    max-width: 604px; /* Adjust max-width as needed */
-    margin-bottom: 10px; 
-    background-color:#9e9d9d;
-    border-radius: 0 0 16px 16px; 
+    max-width: 600px; /* Adjust max-width as needed */
+    margin-bottom: 10px;
+    background-color: #9e9d9d;
+    border-radius: 0 0 16px 16px;
     padding: 10px;
-
-    /* Adjust margin as needed */
+    box-sizing: border-box; /* Include padding and border in width calculation */
 }
+
+.chat-form {
+    display: flex; /* Add flex display */
+    align-items: center; /* Align items vertically in the center */
+    width: 100%; /* Take full width */
+    max-width: 600px; /* Adjust max-width as needed */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
 
 .input-area input {
     flex: 1;
@@ -42,9 +51,11 @@
     text-shadow: none;
     background: #555353;
     box-shadow: transparent;
-    /* border: 1px solid #ffffff80; */
+    border: 1px solid #ffffff80;
     transition: 0.5s ease;
     user-select: none;
+    width: 86%; /* Take full width of the input-area */
+    box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
 .input-area input::placeholder {
@@ -69,10 +80,10 @@
 
 .chat-button {
     margin-top: 0px;
-    margin-left: 10px; /* Adjust margin as needed */
-    padding: 5px 10px;
+    margin-left: 5px; /* Adjust margin as needed */
+    padding: 12px 12px; /* Match the height of the input area textbox */
     text-transform: uppercase;
-    border-radius: 8px;
+    border-radius: 8px; /* Adjust border-radius to match input area */
     font-size: 17px;
     font-weight: 500;
     color: #ffffff80;
@@ -82,7 +93,9 @@
     border: 1px solid #ffffff80;
     transition: 0.5s ease;
     user-select: none;
+    flex-shrink: 0; /* Prevent button from shrinking */
 }
+
 
 .chat-button:hover {
     color: #ffffff;
