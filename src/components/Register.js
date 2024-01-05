@@ -69,7 +69,9 @@ const Register = () => {
   return (
     <div id='login'>
       <div className='form-container'>
-        <h2 className='login-title'>Fashionscape</h2>
+        <Link to='/home' className='login-title-link'>
+          <h2 className='login-title'>Fashionscape</h2>
+        </Link>
         <form onSubmit={handleRegister}>
           <div>
             <input type="email" id="email" name="email" placeholder='Email' />

@@ -1,13 +1,8 @@
 import React, {useEffect, useRef} from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import '../styles/Chat.css';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import PersonIcon from '@mui/icons-material/Person';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useChat } from 'ai/react'; // Import useCompletion and useChat from ai/react
+import Navbar from './Navbar';
 
 const Chat = () => {
     const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -25,30 +20,7 @@ const Chat = () => {
 
     return (
         <div id='home'>
-            <div className='nav-bar'>
-                <Link to="/home" className='home-link'>
-                    <h1 className='fashionscape-home'>Fashionscape</h1>
-                </Link>
-                <div className='input-searchbar'>
-                    <SearchOutlinedIcon className='search-icon'/>
-                    <input type='text' id='searchbar' name='searchbar' placeholder='Search'className='input-searchbar'/>
-                    <div className='menu-icons'>
-                        <Link to="/create">
-                            <AddCircleIcon className='add-icon'/>
-                        </Link>
-                        <Link to="/chat">
-                            <ChatBubbleIcon className='chat-icon'/>
-                        </Link>
-                        <Link to="/likes">
-                            <FavoriteIcon className='like-icon'/>
-                        </Link>
-                        <Link to="/profile">
-                            <PersonIcon className='profile-icon'/>          
-                        </Link>
-                        <button className='signout-button'>Log In</button>
-                    </div>
-                </div>
-            </div>
+            <Navbar/>
             <div className='centered-chat-container'>
                 <div className="chat-window" ref={chatWindowRef}>
                     {/* Display chat messages */}

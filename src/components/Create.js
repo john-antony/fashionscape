@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 import '../styles/Create.css';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import PersonIcon from '@mui/icons-material/Person';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-
+import { useUser } from './UserContext';
+import Navbar from './Navbar';
 
 const Create = () => {
     const navigate = useNavigate();
-
+    const { user } = useUser();
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -66,7 +62,7 @@ const Create = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ imageURL: url, title, description })
+                body: JSON.stringify({ imageURL: url, username: user.username, title, description })
             });
     
             if (!postResponse.ok) {
@@ -118,27 +114,7 @@ const Create = () => {
 
     return (
         <div id='home'>
-            <div className='nav-bar'>
-            <Link to="/home" className='home-link'>
-                <h1 className='fashionscape-home'>Fashionscape</h1>
-            </Link>
-            <div className='input-searchbar'>
-                <SearchOutlinedIcon className='search-icon'/>
-                <input type='text' id='searchbar' name='searchbar' placeholder='Search'className='input-searchbar'/>
-                <Link to="/create">
-                        <AddCircleIcon className='add-icon'/>
-                    </Link>
-                <Link to="/Chat">
-                    <ChatBubbleIcon className='chat-icon'/>
-                </Link>
-                <Link to="/Likes">
-                    <FavoriteIcon className='like-icon'/>
-                </Link>
-                <Link to="/Profile">
-                    <PersonIcon className='profile-icon'/>          
-                </Link>
-            </div>
-            </div>
+            <Navbar/>
             <div id='create'>
                 <div className='create-post-form'>
                     <form onSubmit={handleSubmit} className='file-upload-form'>

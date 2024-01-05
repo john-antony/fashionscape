@@ -38,7 +38,7 @@ function App() {
           <Route exact path="/home" element={<Home images={images}/>} />
           <Route exact path="/image/:postId" element={<Image />} />
           <Route exact path="/create" element={<Create />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/profile/:username" element={<Profile />} />
           <Route exact path="/likes" element={<Likes />} />
           <Route exact path="/chat" element={<Chat />} />
         </Routes>

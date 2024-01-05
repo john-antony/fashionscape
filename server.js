@@ -100,16 +100,23 @@ app.post('/chat-stream', async (req, res) => {
 
 
 app.post('/storePosts', async (req, res) => {
-  const {imageURL, title, description } = req.body;
+  const {imageURL, username, title, description } = req.body;
 
   try {
     const newPost = new Post({
       imageURL,
+      username,
       title,
       description
     });
 
     const savedPost = await newPost.save();
+
+    await User.findOneAndUpdate(
+      { username }, // Find the user by their username
+      { $push: { createdPostUrls: imageURL } }, // Add the imageURL to createdPostUrls array
+      { new: true } // To get the updated document
+    );
 
     // io.emit('newImage', {imageURL, title, description});
     res.json({message: 'Post information stored successfully!', post: savedPost});
@@ -220,8 +227,19 @@ app.post('/register', async (req, res) => {
 app.post('/addlike', async (req, res) => {
   const {username, imageURL} = req.body;
 
+  const indexOfUploads = imageURL.lastIndexOf('/uploads');
+  const substring = indexOfUploads !== -1 ? imageURL.substring(indexOfUploads + 9) : null;
+
+  // Extract the first 36 characters after '/uploads'
+  const charactersToSearch = substring ? substring.slice(0, 36) : null;
+
+  if (!charactersToSearch) {
+    return res.status(400).json({ message: 'Invalid imageURL' });
+  }
+
   try {
     const user = await User.findOne({username});
+    const post = await Post.findOne({ imageURL: { $regex: charactersToSearch } });
 
     if (!user) {
       return res.status(404).json({message: 'User not found'});
@@ -232,20 +250,16 @@ app.post('/addlike', async (req, res) => {
     if (isLiked) {
       user.likedImageUrls = user.likedImageUrls.filter((likedImage) => 
       likedImage !== imageURL);
+      post.likes = post.likes.filter((likes) => likes !== username);
 
     }
     else {
       user.likedImageUrls.push(imageURL);
+      post.likes.push(username);
     }
 
     await user.save();
-
-    const post = await Post.findOne({imageURL});
-
-    if (post) {
-      post.likes += 1;
-      await post.save();
-    }
+    await post.save();
 
     res.status(200).json({message: 'Likes updates successfully', isLiked: !isLiked})
   }
@@ -278,18 +292,23 @@ app.get('/likedimages/:username', async (req, res) => {
 app.get('/posts/search', async (req, res) => {
   const {imageURL} = req.query;
 
+  console.log(imageURL);
+
   try {
 
     const indexOfUploads = imageURL.lastIndexOf('/uploads');
     const substring = indexOfUploads !== -1 ? imageURL.substring(indexOfUploads + 9) : null;
 
-    const encodedSubstring = encodeURIComponent(substring);
-    
-    if (!encodedSubstring) {
-      return res.status(400).json({message: 'Invalid imageURL'});
+    // Extract the first 36 characters after '/uploads'
+    const charactersToSearch = substring ? substring.slice(0, 36) : null;
+
+    if (!charactersToSearch) {
+      return res.status(400).json({ message: 'Invalid imageURL' });
     }
 
-    const post = await Post.findOne({imageURL: { $regex: encodedSubstring }});
+    console.log({ imageURL: { $regex: charactersToSearch }});
+
+    const post = await Post.findOne({ imageURL: { $regex: charactersToSearch } });
 
     if (!post) {
       return res.status(404).json({message: 'Image post not found'});
