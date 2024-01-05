@@ -7,9 +7,20 @@
     min-height: 75vh;
 }
 
+.login-title-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .login-title {
     font-family: "Rabidscience";
     font-size: 35px;
+    transition: 0.5s ease;
+
+}
+
+.login-title:hover {
+    color:rgb(238, 234, 234);
 }
 
 .form-container {

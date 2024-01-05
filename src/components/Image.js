@@ -2,12 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import '../styles/Home.css';
 import '../styles/Image.css';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import PersonIcon from '@mui/icons-material/Person';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from 'axios';
+import Navbar from './Navbar';
 
 const Image = () => {
 
@@ -40,30 +36,7 @@ const Image = () => {
 
     return (
         <div id='home'>
-            <div className='nav-bar'>
-                <Link to="/home" className='home-link'>
-                    <h1 className='fashionscape-home'>Fashionscape</h1>
-                </Link>
-                <div className='input-searchbar'>
-                    <SearchOutlinedIcon className='search-icon'/>
-                    <input type='text' id='searchbar' name='searchbar' placeholder='Search'className='input-searchbar'/>
-                    <div className='menu-icons'>
-                        <Link to="/create">
-                            <AddCircleIcon className='add-icon'/>
-                        </Link>
-                        <Link to="/chat">
-                            <ChatBubbleIcon className='chat-icon'/>
-                        </Link>
-                        <Link to="/likes">
-                            <FavoriteIcon className='like-icon'/>
-                        </Link>
-                        <Link to="/profile">
-                            <PersonIcon className='profile-icon'/>          
-                        </Link>
-                        <button className='signout-button'>Log In</button>
-                    </div>
-                </div>
-            </div>
+            <Navbar/>
             <div className='centered-image'>
                 <div className='image-details-container'>
                     <div className='image-container'>
@@ -72,6 +45,10 @@ const Image = () => {
                     <div className='details-container'>
                         <h2 className='post-title'>{post.title}</h2>
                         <p className='post-description'>{post.description}</p>
+                        <Link to={`/profile/${post.username}`} className='username-link'>
+                            <h3 className='image-username'>{`@${post.username}`}</h3>
+                        </Link>
+                        
                     </div>
                 </div>
             </div>

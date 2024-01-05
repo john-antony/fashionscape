@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
 
 const postSchema = new mongoose.Schema({
     imageURL: {type: String, required: true},
+    username: {type: String, required: true},
     title: {type: String, required: true},
     description: { type: String},
     likes: [{type: String}]

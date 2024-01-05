@@ -41,7 +41,9 @@ const Login = () => {
   return (
     <div id="login">
       <div className='form-container'>
-        <h2 className='login-title'>Fashionscape</h2>
+        <Link to='/home' className='login-title-link'>
+          <h2 className='login-title'>Fashionscape</h2>
+        </Link>
         <form onSubmit={handleLogin}>
           <div className='form-text-box'>
             <input type="text" id="username" name="username" placeholder='Username'/>

@@ -60,6 +60,9 @@ export default function Masonry(props) {
   const handleLikeClick = async (index, imageURL) => {
     if (user && user.username){
       try {
+        console.log('User:', user);
+        console.log('User.username:', user.username);
+        
         const response = await axios.post('http://localhost:3001/addlike', {
           username: user.username,
           imageURL
