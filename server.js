@@ -289,10 +289,27 @@ app.get('/likedimages/:username', async (req, res) => {
   }
 })
 
+app.get('/createdposts/:username', async (req, res) => {
+  const {username} = req.params;
+
+  try {
+    const user = await User.findOne({username});
+
+    if (!user) {
+      return res.status(404).json({message: 'Could not find User.'});
+    }
+
+    const createdPosts = user.createdPostUrls || [];
+    res.status(200).json({createdPosts});
+  }
+  catch (error) {
+    console.error('Error fetching created posts:', error);
+    res.status(500).json({message: 'Internal server error.'});
+  }
+})
+
 app.get('/posts/search', async (req, res) => {
   const {imageURL} = req.query;
-
-  console.log(imageURL);
 
   try {
 
@@ -305,8 +322,6 @@ app.get('/posts/search', async (req, res) => {
     if (!charactersToSearch) {
       return res.status(400).json({ message: 'Invalid imageURL' });
     }
-
-    console.log({ imageURL: { $regex: charactersToSearch }});
 
     const post = await Post.findOne({ imageURL: { $regex: charactersToSearch } });
 
