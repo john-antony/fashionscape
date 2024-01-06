@@ -12,7 +12,7 @@ import '../styles/Navbar.css'
 const Navbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track user login status
     const navigate = useNavigate();
-    const { logoutUser } = useUser();
+    const { logoutUser, user } = useUser();
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -65,7 +65,7 @@ const Navbar = () => {
                     <Link to="/likes">
                         <FavoriteIcon className='like-icon'/>
                     </Link>
-                    <Link to="/profile">
+                    <Link to={user && user.username ? `/profile/${user.username}` : '/profile'}>
                         <PersonIcon className='profile-icon'/>          
                     </Link>
                 </div>

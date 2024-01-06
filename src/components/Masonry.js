@@ -19,7 +19,11 @@ export default function Masonry(props) {
           if (response.status === 200) {
             // Extract liked image URLs from the response and update likedImages state
             const {likedImages} = response.data;
-            setLikedImages(likedImages);
+            const reformattedLikedImages = likedImages.map(imageURL => {
+              const startIndex = imageURL.indexOf('uploads/') + 'uploads/'.length;
+              return imageURL.substring(startIndex, startIndex + 36);
+            });
+            setLikedImages(reformattedLikedImages);
           }
         } catch (error) {
           console.error('Error fetching liked images:', error);
@@ -60,39 +64,45 @@ export default function Masonry(props) {
   const handleLikeClick = async (index, imageURL) => {
     if (user && user.username){
       try {
-        console.log('User:', user);
-        console.log('User.username:', user.username);
-        
-        const response = await axios.post('http://localhost:3001/addlike', {
-          username: user.username,
-          imageURL
-        });
+      
+        const postResponse = await axios.get(`http://localhost:3001/posts/search?imageURL=${imageURL}`);
+        if (postResponse.status === 200) {
+          const {post} = postResponse.data;
 
-        console.log(response);
-  
-        if (response.status === 200){
-          const {isLiked} = response.data;
-          setSelectedImageIndex(index);
-  
-          if (isLiked) {
-            setLikedImages((prevLikedImage) => [...prevLikedImage, imageURL]);
-            
+          const formattedURL = post.imageURL.replace(/s3\..+?\.amazonaws\.com/, 's3.amazonaws.com');
+
+          const response = await axios.post('http://localhost:3001/addlike', {
+            username: user.username,
+            imageURL: formattedURL,
+          });
+
+          console.log(response);
+    
+          if (response.status === 200){
+            const {isLiked} = response.data;
+            setSelectedImageIndex(index);
+    
+            if (isLiked) {
+              setLikedImages([...likedImages, imageURL.substring(imageURL.indexOf('uploads/') + 'uploads/'.length, imageURL.indexOf('uploads/') + 'uploads/'.length + 36)]);
+            } else {
+              setLikedImages(likedImages.filter(likedImage => likedImage !== imageURL.substring(imageURL.indexOf('uploads/') + 'uploads/'.length, imageURL.indexOf('uploads/') + 'uploads/'.length + 36)));
+            }
           }
           else {
-            setLikedImages((prevLikedImage) => 
-              prevLikedImage.filter((likedImages) => likedImages !== imageURL));
+            console.error('Error updating Like:', response.data.message);
           }
         }
         else {
-          console.error('Error updating Like:', response.data.message);
+          console.error('Error getting post info:', postResponse.data.message);
         }
+      
+
       }
       catch (error) {
         console.error('Error updating like:', error);
       }
-
     }
-    else{
+    else {
       navigate('/login');
     }
 
@@ -115,7 +125,7 @@ export default function Masonry(props) {
             className="image"
             onClick={() => handleImageClick(img.imageURL)}
           />
-          {likedImages.includes(img.imageURL) ? (
+          {likedImages.includes(img.imageURL.substring(img.imageURL.indexOf('uploads/') + 'uploads/'.length, img.imageURL.indexOf('uploads/') + 'uploads/'.length + 36)) ? (
             <FavoriteIcon
               className="favorite-icon"
               fontSize='large'

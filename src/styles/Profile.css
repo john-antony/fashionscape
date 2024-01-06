@@ -1,0 +1,24 @@
+.profile-page-container {
+    border: 1px solid #555353;
+    border-radius: 35px;
+    background-color: #555353;
+    height: 80vh;
+
+}
+
+.username-title-container {
+    text-align: center;
+    border: 1px solid rgb(53, 52, 52);
+    border-radius: 35px;
+    background-color:rgb(53, 52, 52);
+}
+
+.username-title {
+    font-family: "Rabidscience";
+    font-size: 48px;
+    color:rgb(204, 199, 199);
+}
+
+.profile-masonry {
+    padding: 1%;
+}
