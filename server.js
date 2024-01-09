@@ -61,6 +61,14 @@ const upload = multer({dest: 'uploads/'});
 //   });
 // });
 
+const extractIdFromImageUrl = (imageURL) => {
+  const indexOfUploads = imageURL.lastIndexOf('/uploads');
+  const substring = indexOfUploads !== -1 ? imageURL.substring(indexOfUploads + 9) : null;
+
+  // Extract the first 36 characters after '/uploads'
+  return substring ? substring.slice(0, 36) : null;
+};
+
 app.post('/chat-stream', async (req, res) => {
   const { messages } = req.body;
 
@@ -227,11 +235,8 @@ app.post('/register', async (req, res) => {
 app.post('/addlike', async (req, res) => {
   const {username, imageURL} = req.body;
 
-  const indexOfUploads = imageURL.lastIndexOf('/uploads');
-  const substring = indexOfUploads !== -1 ? imageURL.substring(indexOfUploads + 9) : null;
-
   // Extract the first 36 characters after '/uploads'
-  const charactersToSearch = substring ? substring.slice(0, 36) : null;
+  const charactersToSearch = extractIdFromImageUrl(imageURL);
 
   if (!charactersToSearch) {
     return res.status(400).json({ message: 'Invalid imageURL' });
@@ -313,11 +318,8 @@ app.get('/posts/search', async (req, res) => {
 
   try {
 
-    const indexOfUploads = imageURL.lastIndexOf('/uploads');
-    const substring = indexOfUploads !== -1 ? imageURL.substring(indexOfUploads + 9) : null;
-
     // Extract the first 36 characters after '/uploads'
-    const charactersToSearch = substring ? substring.slice(0, 36) : null;
+    const charactersToSearch = extractIdFromImageUrl(imageURL);
 
     if (!charactersToSearch) {
       return res.status(400).json({ message: 'Invalid imageURL' });
@@ -354,6 +356,135 @@ app.get('/posts/:postId', async (req, res) => {
     res.status(500).json({message: 'Server error'});
   }
 });
+
+app.delete('/deletePost/:postId', async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({message: 'Post to delete not found.'});
+    }
+
+    await Post.findByIdAndDelete(postId);
+
+    res.status(200).json({message: 'Post successfully deleted.'});
+  }
+  catch (error) {
+    console.error('Error deleting post with postId:', error);
+    res.status(500).json({message: 'Server Error.'});
+  }
+});
+
+app.patch('/deleteCreatedUrl/:username', async (req, res) => {
+  const { username } = req.params;
+  const { imageURL } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found!' });
+    }
+
+    // Extract the 36-character ID from the imageURL
+    const charactersToSearch = extractIdFromImageUrl(imageURL);
+
+    if (!charactersToSearch) {
+      return res.status(400).json({ message: 'Invalid imageURL' });
+    }
+
+    user.createdPostUrls = user.createdPostUrls.filter((url) => {
+      const urlId = extractIdFromImageUrl(url);
+      return urlId !== charactersToSearch;
+    });
+
+    await user.save();
+
+    return res.status(200).json({ message: 'URL deleted from createdPostUrls' });
+  }
+  catch (error) {
+    console.error('Error deleting URL from createdpostUrls', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.patch('/posts/removelike', async (req, res) => {
+  const { imageURL } = req.body;
+
+  try {
+    const users = await User.find({});
+
+    // Extract the 36-character ID from the imageURL
+    const charactersToSearch = extractIdFromImageUrl(imageURL);
+
+    if (!charactersToSearch) {
+      return res.status(400).json({ message: 'Invalid imageURL' });
+    }
+
+    // Loop through each user and filter out the matching imageURL
+    await Promise.all(
+      users.map(async (user) => {
+        user.likedImageUrls = user.likedImageUrls.filter((url) => {
+          const urlId = extractIdFromImageUrl(url);
+          return urlId !== charactersToSearch;
+        });
+        await user.save();
+      })
+    );
+
+    return res.status(200).json({ message: 'Post removed from users likedImageUrls' });
+  } catch (error) {
+    console.error('Error removing post from users likedimageurls:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+app.delete('/deleteS3Object', async (req, res) => {
+  const { imageURL } = req.body;
+
+  console.log('imageURL:', imageURL);
+
+  const imageId = extractIdFromImageUrl(imageURL);
+
+  if (!imageId) {
+    return res.status(400).json({ message: 'Invalid imageURL' });
+  }
+
+  try {
+    console.log('Attempting to list objects in S3 bucket...');
+    const s3ListResponse = await s3.listObjectsV2({ Bucket: 'fashionscape-user-upload' }).promise();
+    console.log('S3 listObjectsV2 response:', s3ListResponse);
+
+    // find and delete the s3 object matching the extracted ID
+    const objectToDelete = s3ListResponse.Contents.find(
+      (obj) => obj.Key.startsWith(`uploads/${imageId}`)
+    );
+
+    if (objectToDelete) {
+      console.log('Object found for deletion:', objectToDelete);
+
+      const deleteParams = {
+        Bucket: 'fashionscape-user-upload',
+        Key: objectToDelete.Key,
+      };
+      console.log('Attempting to delete object from S3...');
+      await s3.deleteObject(deleteParams).promise();
+      console.log('Object deleted successfully.');
+      
+      return res.status(200).json({ message: 'S3 object deleted successfully.' });
+    }
+
+    console.log('Object not found for deletion.');
+    return res.status(404).json({ message: 'S3 Object not found for the given ID' });
+  } catch (error) {
+    console.error('Error deleting S3 object:', error);
+    return res.status(500).json({ message: 'Error deleting S3 object.' });
+  }
+});
+
 
 app.listen(3001, () => {
     console.log('Server is running on port 3001');

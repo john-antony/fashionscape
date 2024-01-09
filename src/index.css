@@ -35,7 +35,41 @@ code {
   cursor: pointer;
 }
 
+.outlined-delete-icon {
+  color: rgb(255, 255, 255);
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.delete-icon {
+  color: rgb(247, 246, 246);
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+  background-color: rgb(110, 110, 110);
+  border: 2px solid rgb(110, 110, 110);
+  border-radius: 30px;
+}
+
+.delete-icon:active:hover {
+  filter: brightness(75%);
+}
+
+.outlined-favorite-icon:active:hover, .favorite-icon:active:hover {
+  filter: brightness(60%);
+}
+
 .image-container:hover .outlined-favorite-icon {
+  opacity: 1;
+}
+.image-container:hover .outlined-delete-icon {
   opacity: 1;
 }
 
