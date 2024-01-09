@@ -140,21 +140,21 @@ export default function Masonry(props) {
     const confirmation = window.confirm('Are you sure you want to delete this post?');
     if (confirmation) {
       try {
-        // const postResponse = await axios.get(`http://localhost:3001/posts/search?imageURL=${imageURL}`);
-        // if (postResponse.status === 200) {
-        //   const { post } = postResponse.data;
+        const postResponse = await axios.get(`http://localhost:3001/posts/search?imageURL=${imageURL}`);
+        if (postResponse.status === 200) {
+          const { post } = postResponse.data;
 
-          // const deletePostResponse = await axios.delete(`http://localhost:3001/deletePost/${post._id}`);
+          const deletePostResponse = await axios.delete(`http://localhost:3001/deletePost/${post._id}`);
 
-          // if (deletePostResponse.status === 200) {
-            //remove imageurl from users createdposturls
-            // const deleteCreatedUrlsResponse = await axios.patch(`http://localhost:3001/deleteCreatedUrl/${user.username}`, { imageURL });
+          if (deletePostResponse.status === 200) {
+            // remove imageurl from users createdposturls
+            const deleteCreatedUrlsResponse = await axios.patch(`http://localhost:3001/deleteCreatedUrl/${user.username}`, { imageURL });
 
-            // if (deleteCreatedUrlsResponse.status === 200) {
+            if (deleteCreatedUrlsResponse.status === 200) {
               // Remove the post from all users' likedImageUrls array
-              // const usersUrlArrayResponse = await axios.patch('http://localhost:3001/posts/removelike', {imageURL});
+              const usersUrlArrayResponse = await axios.patch('http://localhost:3001/posts/removelike', {imageURL});
 
-              // if (usersUrlArrayResponse.status === 200) {
+              if (usersUrlArrayResponse.status === 200) {
                 console.log('imageURL:', imageURL);
 
                 const s3DeleteResponse = await axios.delete('http://localhost:3001/deleteS3Object', {data: {imageURL}});
@@ -165,22 +165,22 @@ export default function Masonry(props) {
                 else {
                   console.error('Error removing object from S3:', s3DeleteResponse.data.message)
                 }
-              // }
-              // else {
-              //   console.error('Error removing post from users likedimageUrls', usersUrlArrayResponse.data.message);
-              // }
+              }
+              else {
+                console.error('Error removing post from users likedimageUrls', usersUrlArrayResponse.data.message);
+              }
 
             // Delete the object from S3 bucket using appropriate SDK
             // Example: AWS SDK or any other library you're using for S3 operations
-            // } else {
-            //   console.error('Error removing post from user createdPostUrls:', deleteCreatedUrlsResponse.data.message);
-            // }
-          // } else {
-          //   console.error('Error deleting post:', deletePostResponse.data.message);
-          // }
-        // } else {
-        //   console.error('Error fetching post information:', postResponse.data.message);
-        // }
+            } else {
+              console.error('Error removing post from user createdPostUrls:', deleteCreatedUrlsResponse.data.message);
+            }
+          } else {
+            console.error('Error deleting post:', deletePostResponse.data.message);
+          }
+        } else {
+          console.error('Error fetching post information:', postResponse.data.message);
+        }
       } catch (error) {
         console.error('Error deleting post:', error);
       }
@@ -202,7 +202,7 @@ export default function Masonry(props) {
             src={img.imageURL}
             alt=""
             className="image"
-            onClick={() => handleDeleteClick(i, img.imageURL)}
+            onClick={() => handleImageClick(img.imageURL)}
           />
           {likedImages.includes(img.imageURL.substring(img.imageURL.indexOf('uploads/') + 'uploads/'.length, img.imageURL.indexOf('uploads/') + 'uploads/'.length + 36)) ? (
             <FavoriteIcon

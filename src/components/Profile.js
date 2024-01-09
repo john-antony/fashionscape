@@ -5,9 +5,11 @@ import { useUser } from './UserContext.js'
 import '../styles/Profile.css';
 import Masonry from './Masonry.js';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 const Profile = () => {
+    const {username} = useParams();
     const { user } = useUser();
     const [createdPosts, setCreatedPosts] = useState([]);
 
@@ -15,7 +17,7 @@ const Profile = () => {
         async function fetchCreatedPosts() {
             if (user && user.username) {
                 try {
-                    const response = await axios.get(`http://localhost:3001/createdposts/${user.username}`);
+                    const response = await axios.get(`http://localhost:3001/createdposts/${username}`);
                     if (response.status === 200) {
                         const { createdPosts } = response.data;
                         // Transform the likedImages array into objects with imageURL property
@@ -43,7 +45,7 @@ const Profile = () => {
             <Navbar/>
             <div className='profile-page-container'>
                 <div className='username-title-container'>
-                    <h1 className='username-title'>{user.username}</h1>
+                    <h1 className='username-title'>{username}</h1>
                 </div>
                 <div className='profile-masonry'>
                     <Masonry images={createdPosts} columnCount='6' gap="5"></Masonry>

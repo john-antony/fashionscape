@@ -454,9 +454,9 @@ app.delete('/deleteS3Object', async (req, res) => {
   }
 
   try {
-    console.log('Attempting to list objects in S3 bucket...');
+    // console.log('Attempting to list objects in S3 bucket...');
     const s3ListResponse = await s3.listObjectsV2({ Bucket: 'fashionscape-user-upload' }).promise();
-    console.log('S3 listObjectsV2 response:', s3ListResponse);
+    // console.log('S3 listObjectsV2 response:', s3ListResponse);
 
     // find and delete the s3 object matching the extracted ID
     const objectToDelete = s3ListResponse.Contents.find(
