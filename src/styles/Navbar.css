@@ -27,29 +27,118 @@
 
 .nav-bar input[type='text'].input-searchbar{
   position: relative;
+  font-size: large;
   display: block;
   color: rgb(34, 34, 34);
   background: linear-gradient(142.99deg, rgba(217, 217, 217, 0.63) 15.53%, rgba(243, 243, 243, 0.63) 88.19%);
   box-shadow: 0px 12px 24px -1px rgba(0, 0, 0,0.18);
   border-color: rgba(7, 4, 14, 0);
+  opacity: .2;
   border-radius: 50px;
   block-size: 20px;
-  margin-left: 300px;
+  margin-left: 50px;
   margin-right: auto;
   padding: 18px 15px;
   outline: none;
   text-align: center;
-  width: 600px;
+  width: 1050px;
   transition: 0.5s;
+}
+
+.search-results {
+  color: rgb(34, 34, 34);
+  background-color: rgba(217, 217, 217, 0.9); /* Adjust the alpha value */
+  box-shadow: 0px 12px 24px -1px rgba(0, 0, 0, 0.18);
+  border-color: rgba(7, 4, 14, 0);
+  border-radius: 50px;
+  margin-left: 50px;
+  margin-right: auto;
+  padding: 18px 15px;
+  outline: none;
+  width: 1050px;
+  transition: 0.5s;
+  top: calc(100%);
+  position: absolute;
+  border: 1px solid #ccc;
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+.search-result-header {
+  font-family: 'Rabidscience';
+}
+
+
+.user-results,
+.post-results {
+  padding: 10px;
+}
+
+/* Styling for the title (Users and Posts) */
+.user-results h3,
+.post-results h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+/* Styling for the lists */
+.user-results ul,
+.post-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Styling for list items */
+.user-results li,
+.post-results li {
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 18px 15px;
+  border: 1px solid transparent;
+  border-radius: 50px;
+}
+
+.search-result-bubble {
+  background-color: rgba(199, 197, 197, 1); /* Adjust the alpha value */
+  border: 1px solid transparent;
+  border-radius: 50px;
+  padding: 18px 15px;
+}
+
+.search-result-link {
+  text-decoration: none;
+  color: inherit;
+  
+}
+
+/* Styling for list items on hover */
+.user-results li:hover,
+.post-results li:hover {
+  background-color: rgba(199, 197, 197, 1); /* Adjust the alpha value */
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 18px 15px;
+
 }
 
 .search-icon {
   position: absolute;
-  left: 650px; /* Adjust the icon position */
+  left: 400px; /* Adjust the icon position */
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
   color: #504f4f; /* Adjust icon color if necessary */
+}
+
+.clear-button {
+  position: absolute;
+  left: 1420px; /* Adjust the icon position */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: #504f4f;
+  border: 5px solid transparent;
 }
 
 .add-icon {
@@ -129,7 +218,17 @@
           drop-shadow(0 0 100px #858585);
 }
 
+.nav-bar input[type = "text"].input-searchbar:focus {
+  opacity: 1;
+}
+
+.clear-button:hover {
+  border: 5px solid #dadada;
+  border-radius: 50px;
+}
+
 .nav-bar input[type = "text"].input-searchbar:hover {
+  opacity: 1;
   box-shadow: 0 0 5px #858585,
               0 0 20px #858585,
               0 0 50px #858585,

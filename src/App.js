@@ -15,18 +15,18 @@ import './App.css';
 import axios from 'axios';
 
 function App() {
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
 
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/images')
-    .then(response => {
-      setImages(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching images:', error);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://localhost:3001/images')
+  //   .then(response => {
+  //     setImages(response.data);
+  //   })
+  //   .catch(error => {
+  //     console.error('Error fetching images:', error);
+  //   });
+  // }, []);
       
   return (
     <UserProvider>
@@ -35,7 +35,7 @@ function App() {
           <Route exact path="/" element={<Enter />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
-          <Route exact path="/home" element={<Home images={images}/>} />
+          <Route exact path="/home" element={<Home />} />
           <Route exact path="/image/:postId" element={<Image />} />
           <Route exact path="/create" element={<Create />} />
           <Route exact path="/profile/:username" element={<Profile />} />

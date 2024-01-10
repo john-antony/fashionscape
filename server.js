@@ -10,6 +10,8 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const uuid = require('uuid');
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 // const http = require('http');
 // const socketIo = require('socket.io');
 
@@ -158,12 +160,6 @@ app.post('/uploadToS3', upload.single('file'), async (req, res) => {
 
 });
 
-// app.get('/s3Url', async (req, res) => {
-//   const { title, description } = req.query; // Extract title and description from query params 
-//   const url = await generateUploadURL({title, description});
-//   res.send({url});
-// })
-
 app.get('/images', async (req, res) => {
   try {
     const params = {
@@ -178,6 +174,7 @@ app.get('/images', async (req, res) => {
         imageURL: `https://${params.Bucket}.s3.amazonaws.com/${obj.Key}`,
       };
     });
+    io.emit('imagesUpdated', images);
     res.json(images);
   }
   catch (error) {
@@ -485,7 +482,47 @@ app.delete('/deleteS3Object', async (req, res) => {
   }
 });
 
+app.get('/userSearch', async (req, res) => {
+  const { search } = req.query;
+  try {
+    const users = await User.find({
+      $or: [
+        { username: {$regex: search, $options: 'i'} },
+        // add more fields for search if necessary
+      ],
+    });
 
-app.listen(3001, () => {
+    res.status(200).json(users);
+  }
+  catch (error) {
+    console.error('User search error:', error);
+    res.status(500).json({error: 'Error searching users.'});
+  }
+
+});
+
+app.get('/postSearch', async (req, res) => {
+  const { search } = req.query;
+
+  try {
+    const posts = await Post.find({
+      $or: [
+        { title: {$regex: search, $options: 'i'} },
+        { description: {$regex: search, $options: 'i'} },
+        // add more fields
+      ],
+    });
+
+    res.status(200).json(posts);
+  }
+  catch (error) {
+    console.error('Post search error:', error);
+    res.status(500).json({error: 'Error searching posts'});
+  }
+
+});
+
+
+server.listen(3001, () => {
     console.log('Server is running on port 3001');
 });

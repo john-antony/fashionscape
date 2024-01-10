@@ -1,20 +1,50 @@
 import React, {useEffect, useState} from 'react';
 import '../styles/Home.css';
 
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 // import Masonry from 'masonry-layout';
 // import imagesLoaded from 'imagesloaded';
 import Masonry from './Masonry.js';
 import Navbar from './Navbar.js';
 
-const Home = ({images}) => {
-  // const socket = io.connect('http://localhost:3001');
+const socket = io.connect('http://localhost:3001');
 
-  const [refreshedImages, setRefreshedImages] = useState([]);
-  
+const Home = () => {
+
+  const [images, setImages] = useState([]);
+
   useEffect(() => {
-    setRefreshedImages(images);
-  }, [images]);
+    // Fetch initial images from server
+    fetchImages();
+
+    // Listen for socket updates
+    socket.on('imagesUpdated', (updatedImages) => {
+      setImages(updatedImages);
+    });
+
+    return () => {
+      // Clean up event listener on unmounting component
+      socket.off('imagesUpdated');
+    };
+  }, []);
+
+  const fetchImages = () => {
+    // Fetch images from the server
+    fetch('http://localhost:3001/images')
+      .then((response) => response.json())
+      .then((data) => {
+        setImages(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching images:', error);
+      });
+  };
+
+  // const [refreshedImages, setRefreshedImages] = useState([]);
+  
+  // useEffect(() => {
+  //   setRefreshedImages(images);
+  // }, [images]);
 
   // useEffect(() => {
   //   socket.on('newImage', (newImage) => {
@@ -30,7 +60,7 @@ const Home = ({images}) => {
     <div id='home'>
       <Navbar/>
       <div className='masonry'>
-        <Masonry images={refreshedImages} columnCount='6' gap="5"></Masonry>
+        <Masonry images={images} columnCount='6' gap="5"></Masonry>
       </div>
     </div>
   );
