@@ -1,13 +1,11 @@
 import React, {useEffect, useRef} from 'react';
 import '../styles/Home.css';
 import '../styles/Chat.css';
-import { useChat } from 'ai/react'; // Import useCompletion and useChat from ai/react
 import Navbar from './Navbar';
+import { useChatContext } from './ChatContext';
 
 const Chat = () => {
-    const { messages, input, handleInputChange, handleSubmit } = useChat({
-        api: 'http://localhost:3001/chat-stream', // Replace with your actual server endpoint
-    });
+    const { messages, input, handleInputChange, handleSubmit } = useChatContext();
 
     const chatWindowRef = useRef(null);
 
