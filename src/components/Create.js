@@ -4,6 +4,7 @@ import '../styles/Home.css';
 import '../styles/Create.css';
 import { useUser } from './UserContext';
 import Navbar from './Navbar';
+import Filter from 'bad-words';
 
 const Create = () => {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Create = () => {
     const [previewImage, setPreviewImage] = useState(null);
     const [isDraggingOver, setIsDraggingOver] = useState(false);
     const [isUploaded, setIsUploaded] = useState(false); // Add state to track if an image is uploaded
+    const filter = new Filter();
 
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
@@ -55,6 +57,9 @@ const Create = () => {
     
             const uploadData = await uploadResponse.json();
             const { url } = uploadData;
+
+            const clean_title = filter.clean(title);
+            const clean_description = filter.clean(description);
     
             // Store post information along with the obtained imageURL
             const postResponse = await fetch('http://localhost:3001/storePosts', {
@@ -62,7 +67,7 @@ const Create = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ imageURL: url, username: user.username, title, description })
+                body: JSON.stringify({ imageURL: url, username: user.username, title: clean_title, description: clean_description })
             });
     
             if (!postResponse.ok) {

@@ -36,7 +36,7 @@ const Likes = () => {
         <div id='home'>
             <Navbar/>
             <div className='masonry'>
-                <Masonry images={likedImages} columnCount='6' gap="5"></Masonry>
+                <Masonry images={likedImages} gap="5"></Masonry>
             </div>
         </div>
     );

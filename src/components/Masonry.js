@@ -15,6 +15,38 @@ export default function Masonry(props) {
   const [createdPosts, setCreatedPosts] = useState([]);
   const [deleteHoverIndex, setDeleteHoverIndex] = useState(null);
 
+  const [columnCount, setColumnCount] = useState(6);
+
+  useEffect(() => {
+    // Function to update columnCount based on screen width
+    const updateColumnCount = () => {
+      if (window.innerWidth >= 1600) {
+        setColumnCount(7);
+      } else if (window.innerWidth >= 1300) {
+        setColumnCount(6);
+      } else if (window.innerWidth >= 1100) {
+        setColumnCount(5);
+      } else if (window.innerWidth >= 992) {
+        setColumnCount(4);
+      } else if (window.innerWidth >= 768) {
+        setColumnCount(3);
+      } else if (window.innerWidth >= 576) {
+        setColumnCount(2);
+      } else {
+        setColumnCount(1);
+      }
+    };
+
+    // Update columnCount initially and add a listener for window resize
+    updateColumnCount();
+    window.addEventListener('resize', updateColumnCount);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', updateColumnCount);
+    };
+  }, []);
+
   useEffect(() => {
     async function fetchLikedImages() {
       if (user && user.username) {
@@ -189,7 +221,7 @@ export default function Masonry(props) {
   };
 
   return (
-    <div style={{ columns: props.columnCount, gutter: 0 }}>
+    <div style={{ columns: columnCount, gutter: 0 }}>
       {props.images.map((img, i) => (
         <div
           key={i}

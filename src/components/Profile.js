@@ -48,7 +48,7 @@ const Profile = () => {
                     <h1 className='username-title'>{username}</h1>
                 </div>
                 <div className='profile-masonry'>
-                    <Masonry images={createdPosts} columnCount='6' gap="5"></Masonry>
+                    <Masonry images={createdPosts} gap="5"></Masonry>
                 </div>
             </div>
         </div>

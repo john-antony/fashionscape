@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth} from 'firebase/auth';
+import {browserSessionPersistence, getAuth, setPersistence, onAuthStateChanged } from 'firebase/auth';
 // import { getAnalytics } from "firebase/analytics";
 
 // const {User} = require('../mongo.js');
@@ -23,6 +23,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 // const analytics = getAnalytics(app);
+
+setPersistence(auth, browserSessionPersistence);
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in.
+    console.log('User is signed in:', user.uid);
+  } else {
+    // User is signed out.
+    console.log('User is signed out');
+  }
+});
 
 
 export default auth;

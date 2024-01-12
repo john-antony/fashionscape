@@ -60,7 +60,7 @@ const Home = () => {
     <div id='home'>
       <Navbar/>
       <div className='masonry'>
-        <Masonry images={images} columnCount='6' gap="5"></Masonry>
+        <Masonry images={images} gap="5"></Masonry>
       </div>
     </div>
   );

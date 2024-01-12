@@ -10,8 +10,7 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const uuid = require('uuid');
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+
 // const http = require('http');
 // const socketIo = require('socket.io');
 
@@ -48,7 +47,13 @@ app.use(bodyParser.json());
 app.use(cors());
 const upload = multer({dest: 'uploads/'});
 
-
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+  },
+});
 // const server = http.createServer(app);
 
 // server.listen(3001);
