@@ -7,4 +7,11 @@
 .masonry {
   margin-left: 25px;
 }
-  
+
+@media only screen and (max-width: 600px) {
+  #home {
+    padding-left: 50px;
+    padding-top: 10px;
+    padding-right: 60px;
+  }
+}
