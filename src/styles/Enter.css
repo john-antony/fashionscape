@@ -6,10 +6,6 @@
     padding-top: 10%;
     min-height: 75vh;
 }
-@font-face {
-    font-family: 'Rabidscience';
-    src: url("Fonts/rabidscience.ttf") format('truetype');
-}
 
 .title {
     font-family: "Rabidscience";

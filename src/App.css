@@ -1,9 +1,14 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url('assets/darkcrete.jpg'); /* Replace 'path_to_your_image.jpg' with the actual path to your image */
+  background-image: url('../public/assets/darkcrete.jpg'); /* Replace 'path_to_your_image.jpg' with the actual path to your image */
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100vh; /* Ensures the image covers the entire viewport height */
+}
+
+@font-face {
+  font-family: 'Rabidscience';
+  src: url("../public/Fonts/rabidscience.ttf") format('truetype');
 }
