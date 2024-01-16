@@ -34,7 +34,7 @@ const generateSecretKey = () => {
 const SECRET_KEY = generateSecretKey();
 console.log('Your secret key:', SECRET_KEY); // Replace this with your actual secret key
 
-mongoose.connect('mongodb://127.0.0.1:27017/fashionscape', {
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
