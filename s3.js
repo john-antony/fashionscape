@@ -7,7 +7,7 @@ const {getSignedUrl} = require('@aws-sdk/s3-request-presigner');
 // const {PrismaClient} = require('@prisma/client');
 
 const region = "us-east-2";
-const bucketName = "fashionscape-user-upload";
+const bucketName = process.env.AWS_S3_BUCKET_NAME;
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 

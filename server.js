@@ -148,7 +148,7 @@ app.post('/uploadToS3', upload.single('file'), async (req, res) => {
   const key = `uploads/${uuid.v4()}_${file.originalname}`;
 
   const params = {
-    Bucket: "fashionscape-user-upload",
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
     Key: key,
     // Body: file.buffer,
     Body: require('fs').createReadStream(file.path),
@@ -168,7 +168,7 @@ app.post('/uploadToS3', upload.single('file'), async (req, res) => {
 app.get('/images', async (req, res) => {
   try {
     const params = {
-      Bucket: 'fashionscape-user-upload',
+      Bucket: process.env.AWS_S3_BUCKET_NAME,
       Prefix: 'uploads/'
     };
 
@@ -457,7 +457,7 @@ app.delete('/deleteS3Object', async (req, res) => {
 
   try {
     // console.log('Attempting to list objects in S3 bucket...');
-    const s3ListResponse = await s3.listObjectsV2({ Bucket: 'fashionscape-user-upload' }).promise();
+    const s3ListResponse = await s3.listObjectsV2({ Bucket: process.env.AWS_S3_BUCKET_NAME }).promise();
     // console.log('S3 listObjectsV2 response:', s3ListResponse);
 
     // find and delete the s3 object matching the extracted ID
@@ -469,7 +469,7 @@ app.delete('/deleteS3Object', async (req, res) => {
       console.log('Object found for deletion:', objectToDelete);
 
       const deleteParams = {
-        Bucket: 'fashionscape-user-upload',
+        Bucket: process.env.AWS_S3_BUCKET_NAME,
         Key: objectToDelete.Key,
       };
       console.log('Attempting to delete object from S3...');

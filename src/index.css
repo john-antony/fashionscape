@@ -43,6 +43,8 @@ code {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 30px;
 }
 
 .delete-icon {
