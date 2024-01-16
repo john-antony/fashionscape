@@ -51,7 +51,7 @@ export default function Masonry(props) {
     async function fetchLikedImages() {
       if (user && user.username) {
         try {
-          const response = await axios.get(`http://localhost:3001/likedimages/${user.username}`);
+          const response = await axios.get(`https://fashionscape-backend.onrender.com/likedimages/${user.username}`);
           if (response.status === 200) {
             // Extract liked image URLs from the response and update likedImages state
             const {likedImages} = response.data;
@@ -74,7 +74,7 @@ export default function Masonry(props) {
     async function fetchCreatedImages() {
       if (user && user.username) {
         try {
-          const response = await axios.get(`http://localhost:3001/createdposts/${user.username}`);
+          const response = await axios.get(`https://fashionscape-backend.onrender.com/createdposts/${user.username}`);
           if (response.status === 200) {
             // Extract created image URLs from the response and update likedImages state
             const {createdPosts} = response.data;
@@ -105,7 +105,7 @@ export default function Masonry(props) {
     try {
       const normalizedURL = normalizeURL(imageURL);
       console.log(normalizedURL);
-      const response = await axios.get(`http://localhost:3001/posts/search?imageURL=${normalizedURL}`);
+      const response = await axios.get(`https://fashionscape-backend.onrender.com/posts/search?imageURL=${normalizedURL}`);
       if (response.status === 200) {
         const {post} = response.data;
 
@@ -124,13 +124,13 @@ export default function Masonry(props) {
     if (user && user.username){
       try {
       
-        const postResponse = await axios.get(`http://localhost:3001/posts/search?imageURL=${imageURL}`);
+        const postResponse = await axios.get(`https://fashionscape-backend.onrender.com/posts/search?imageURL=${imageURL}`);
         if (postResponse.status === 200) {
           const {post} = postResponse.data;
 
           const formattedURL = post.imageURL.replace(/s3\..+?\.amazonaws\.com/, 's3.amazonaws.com');
 
-          const response = await axios.post('http://localhost:3001/addlike', {
+          const response = await axios.post('https://fashionscape-backend.onrender.com/addlike', {
             username: user.username,
             imageURL: formattedURL,
           });
@@ -172,24 +172,24 @@ export default function Masonry(props) {
     const confirmation = window.confirm('Are you sure you want to delete this post?');
     if (confirmation) {
       try {
-        const postResponse = await axios.get(`http://localhost:3001/posts/search?imageURL=${imageURL}`);
+        const postResponse = await axios.get(`https://fashionscape-backend.onrender.com/posts/search?imageURL=${imageURL}`);
         if (postResponse.status === 200) {
           const { post } = postResponse.data;
 
-          const deletePostResponse = await axios.delete(`http://localhost:3001/deletePost/${post._id}`);
+          const deletePostResponse = await axios.delete(`https://fashionscape-backend.onrender.com/deletePost/${post._id}`);
 
           if (deletePostResponse.status === 200) {
             // remove imageurl from users createdposturls
-            const deleteCreatedUrlsResponse = await axios.patch(`http://localhost:3001/deleteCreatedUrl/${user.username}`, { imageURL });
+            const deleteCreatedUrlsResponse = await axios.patch(`https://fashionscape-backend.onrender.com/deleteCreatedUrl/${user.username}`, { imageURL });
 
             if (deleteCreatedUrlsResponse.status === 200) {
               // Remove the post from all users' likedImageUrls array
-              const usersUrlArrayResponse = await axios.patch('http://localhost:3001/posts/removelike', {imageURL});
+              const usersUrlArrayResponse = await axios.patch('https://fashionscape-backend.onrender.com/posts/removelike', {imageURL});
 
               if (usersUrlArrayResponse.status === 200) {
                 console.log('imageURL:', imageURL);
 
-                const s3DeleteResponse = await axios.delete('http://localhost:3001/deleteS3Object', {data: {imageURL}});
+                const s3DeleteResponse = await axios.delete('https://fashionscape-backend.onrender.com/deleteS3Object', {data: {imageURL}});
 
                 if (s3DeleteResponse.status === 200) {
                   alert('Post succesfully deleted from system. :)');

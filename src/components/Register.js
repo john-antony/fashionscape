@@ -56,7 +56,7 @@ const Register = () => {
 
       await createUserWithEmailAndPassword(auth, userData.email, password);
 
-      await axios.post('http://localhost:3001/register', userData);
+      await axios.post('https://fashionscape-backend.onrender.com/register', userData);
 
       alert('Registration Successful!');
       navigate('/login');

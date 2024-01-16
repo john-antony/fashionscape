@@ -21,11 +21,11 @@ const Navbar = () => {
     const handleSearch = async (searchQuery) => {
         try {
             // Make API call to fetch users based on search term
-            const usersResponse = await axios.get(`http://localhost:3001/userSearch?search=${searchQuery}`);
+            const usersResponse = await axios.get(`https://fashionscape-backend.onrender.com/userSearch?search=${searchQuery}`);
             const userData = await usersResponse.data;
 
             // Make API call to fetch posts based on search term
-            const postsResponse = await axios.get(`http://localhost:3001/postSearch?search=${searchQuery}`);
+            const postsResponse = await axios.get(`https://fashionscape-backend.onrender.com/postSearch?search=${searchQuery}`);
             const postData = await postsResponse.data;
 
             setSearchResults({ users: userData, posts: postData });

@@ -16,19 +16,7 @@ import './App.css';
 import axios from 'axios';
 
 function App() {
-  // const [images, setImages] = useState([]);
 
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3001/images')
-  //   .then(response => {
-  //     setImages(response.data);
-  //   })
-  //   .catch(error => {
-  //     console.error('Error fetching images:', error);
-  //   });
-  // }, []);
-      
   return (
     <UserProvider>
       <ChatProvider>
@@ -49,23 +37,5 @@ function App() {
     </UserProvider>
   );
 }
-
-// // PrivateRoute component to handle redirection for authenticated users
-// const PrivateRoute = ({ component: Component, ...rest }) => {
-//   // const isLoggedIn = /* Check if the user is authenticated */;
-
-//   return (
-//     <Route
-//       {...rest}
-//       render={(props) =>
-//         isLoggedIn ? (
-//           <Component {...props} />
-//         ) : (
-//           <Redirect to="/login" />
-//         )
-//       }
-//     />
-//   );
-// };
 
 export default App;

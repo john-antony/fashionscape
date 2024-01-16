@@ -15,7 +15,7 @@ const Profile = () => {
         async function fetchCreatedPosts() {
             
             try {
-                const response = await axios.get(`http://localhost:3001/createdposts/${username}`);
+                const response = await axios.get(`https://fashionscape-backend.onrender.com/createdposts/${username}`);
                 if (response.status === 200) {
                     const { createdPosts } = response.data;
                     // Transform the likedImages array into objects with imageURL property

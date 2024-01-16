@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 import Masonry from './Masonry.js';
 import Navbar from './Navbar.js';
 
-const socket = io.connect('http://localhost:3001');
+const socket = io.connect('https://fashionscape-backend.onrender.com');
 
 const Home = () => {
 
@@ -30,7 +30,7 @@ const Home = () => {
 
   const fetchImages = () => {
     // Fetch images from the server
-    fetch('http://localhost:3001/images')
+    fetch('https://fashionscape-backend.onrender.com/images')
       .then((response) => response.json())
       .then((data) => {
         setImages(data);
@@ -39,22 +39,6 @@ const Home = () => {
         console.error('Error fetching images:', error);
       });
   };
-
-  // const [refreshedImages, setRefreshedImages] = useState([]);
-  
-  // useEffect(() => {
-  //   setRefreshedImages(images);
-  // }, [images]);
-
-  // useEffect(() => {
-  //   socket.on('newImage', (newImage) => {
-  //     setImages((prevImages) => [newImage, ...prevImages]);
-  //   });
-
-  //   return () => {
-  //     socket.off('newImage');
-  //   };
-  // }, []);
 
   return (
     <div id='home'>

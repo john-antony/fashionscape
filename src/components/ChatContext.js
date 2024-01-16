@@ -6,7 +6,7 @@ const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
   const { messages, setMessages, ...chatHook } = useChatHook({
-    api: 'http://localhost:3001/chat-stream',
+    api: 'https://fashionscape-backend.onrender.com/chat-stream',
   });
 
   const { user } = useUser();

@@ -46,7 +46,7 @@ const Create = () => {
             formData.append('file', file);
     
             // Upload the file to AWS S3
-            const uploadResponse = await fetch('http://localhost:3001/uploadToS3', {
+            const uploadResponse = await fetch('https://fashionscape-backend.onrender.com/uploadToS3', {
                 method: 'POST',
                 body: formData
             });
@@ -62,7 +62,7 @@ const Create = () => {
             const clean_description = filter.clean(description);
     
             // Store post information along with the obtained imageURL
-            const postResponse = await fetch('http://localhost:3001/storePosts', {
+            const postResponse = await fetch('https://fashionscape-backend.onrender.com/storePosts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

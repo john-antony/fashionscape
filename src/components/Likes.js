@@ -14,7 +14,7 @@ const Likes = () => {
         async function fetchLikedImages() {
             if (user && user.username) {
                 try {
-                    const response = await axios.get(`http://localhost:3001/likedimages/${user.username}`);
+                    const response = await axios.get(`https://fashionscape-backend.onrender.com/likedimages/${user.username}`);
                     if (response.status === 200) {
                         const { likedImages } = response.data;
                         // Transform the likedImages array into objects with imageURL property

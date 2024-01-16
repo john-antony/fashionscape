@@ -18,7 +18,7 @@ const Login = () => {
     const password = formData.get('password');
 
     try {
-      const response = await axios.post('http://localhost:3001/login', {username, password});
+      const response = await axios.post('https://fashionscape-backend.onrender.com/login', {username, password});
 
       if (response.status === 200 && response.data.email) {
         console.log('Response: ', response);

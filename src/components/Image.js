@@ -13,7 +13,7 @@ const Image = () => {
     useEffect(() => {
         async function fetchPost() {
             try {
-                const response = await axios.get(`http://localhost:3001/posts/${postId}`);
+                const response = await axios.get(`https://fashionscape-backend.onrender.com/posts/${postId}`);
                 if (response.status === 200) {
                     setPost(response.data);
                 }
