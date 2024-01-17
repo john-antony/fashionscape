@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import '../styles/Home.css';
+import '../styles/Profile.css';
 import Masonry from './Masonry';
 import axios from 'axios';
 import { useUser } from './UserContext';
@@ -35,8 +36,13 @@ const Likes = () => {
     return (
         <div id='home'>
             <Navbar/>
-            <div className='masonry'>
-                <Masonry images={likedImages} gap="5"></Masonry>
+            <div className='profile-page-container'>
+                <div className='username-title-container'>
+                    <h1 className='username-title'>Likes</h1>
+                </div>
+                <div className='profile-masonry'>
+                    <Masonry images={likedImages} gap="5"></Masonry>
+                </div>
             </div>
         </div>
     );
