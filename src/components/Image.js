@@ -39,7 +39,7 @@ const Image = () => {
             <Navbar/>
             <div className='centered-image'>
                 <div className='image-details-container'>
-                    <div className='image-container'>
+                    <div className='image-view-container'>
                         <img src={post.imageURL} alt="" className='image-proportions' />
                     </div>
                     <div className='details-container'>

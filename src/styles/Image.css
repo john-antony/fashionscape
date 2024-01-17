@@ -8,20 +8,21 @@
   background-color: #f7f7f7;
 }
 
-.image-view-container {
+/* .image-view-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #f0f0f0;
-}
+} */
 
 /* Main container holding the image and details */
 .image-details-container {
+  overflow-y: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
   gap: 30px;
-  max-width: 1200px; /* Adjust max-width as needed */
+  width: 100%; /* Adjust max-width as needed */
   /* padding: 10px; */
   background-color: #fff;
   /* border-radius: 35px; */
@@ -29,13 +30,12 @@
 }
 
 /* Styling for the image */
-.image-container {
-  grid-column: 1 / 2;
+.image-view-container {
   /* border-radius: 35px; */
   overflow: hidden;
 }
 
-.image-container img {
+.image-view-container img {
   width: 100%;
   height: auto;
   display: block;
@@ -44,7 +44,6 @@
 
 /* Container for image details */
 .details-container {
-  grid-column: 2 / 3;
   display: flex;
   flex-direction: column;
   margin-right: 5%;
@@ -54,7 +53,7 @@
 
 /* Title */
 .post-title {
-  font-size: 46px;
+  font-size: 3vw;
   font-weight: bold;
 }
 
@@ -73,4 +72,26 @@
   font-family: 'Rabidscience';
   font-size: 32px;
 
+}
+
+@media (max-width: 900px) {
+  .centered-image {
+    margin-left: 9%;
+    margin-right: auto;
+    width: 90%;
+   
+  }
+  .image-details-container {
+    grid-template-columns: 1fr; /* Set a single column for smaller screens */
+  }
+
+  .details-container {
+    align-items: center;
+    text-align: center;
+    margin-left: 5%;
+  }
+
+  .post-title {
+    font-size: 36px;
+  }
 }

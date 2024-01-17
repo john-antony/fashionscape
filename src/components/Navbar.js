@@ -17,6 +17,7 @@ const Navbar = () => {
     const { logoutUser, user } = useUser();
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState({ users: [], posts: [] });
+    const isHomePage = window.location.pathname === '/home';
 
     const handleSearch = async (searchQuery) => {
         try {
@@ -71,7 +72,7 @@ const Navbar = () => {
 
     return (
         <div className='nav-bar'>
-            <Link to="/home" className='home-link'>
+            <Link to={isHomePage ? '/' : '/home'} className='home-link'>
                 <h1 className='fashionscape-home'>Fashionscape</h1>
             </Link>
             <div className='searchbar-container'>
