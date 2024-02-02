@@ -2,7 +2,7 @@
 # <h1 align='center'>⭐ FASHIONSCAPE ⭐ </h1>
 # <h1 align='center'>MERN FULL STACK PINTEREST CLONE</h1>
 
-[WEBSITE LINK](https://fashionscape.onrender.com/)
+# <h2 align='center'>[FASHIONSCAPE LINK](https://fashionscape.onrender.com/)</h2>
 
 ## tech stack: MongoDB Atlas, Express, React, Node, AWS, OPENAI, Firebase
 
