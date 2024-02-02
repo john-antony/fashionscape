@@ -1,5 +1,6 @@
 <a name="readme-top"></a>
-# <h1 align='center'>⭐ FASHIONSCAPE MERN FULL STACK PINTEREST CLONE ⭐</h1>
+# <h1 align='center'>⭐ FASHIONSCAPE ⭐ </h1>
+# <h1 align='center'>MERN FULL STACK PINTEREST CLONE</h1>
 
 [WEBSITE LINK](https://fashionscape.onrender.com/)
 
